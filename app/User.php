@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+// use Laravel\Passport\HasApiTokens;
+use Hash;
 
 class User extends Authenticatable
 {
@@ -36,4 +38,25 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function products() {
+        return $this->hasMany('App\Product', 'user_id', 'id');
+    }
+
+    public function bills() {
+        return $this->hasMany('App\Bill', 'shiper_id', 'id');
+    }
+
+    public function orders() {
+        return $this->hasMany('App\Order', 'user_id', 'id');
+    }
+
+    public function validateForPassportPasswordGrant($password) {
+        if (Hash::check($password, $this->getAuthPassword())) { 
+            if ($this->active) { 
+                return true;
+            }
+        }
+        return false;
+    }
 }
