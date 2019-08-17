@@ -15,10 +15,10 @@ class CreateBillsTable extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('status_id');
-            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
-            $table->unsignedBigInteger('shiper_id');
-            $table->foreign('shiper_id')->references('id')->on('users')->onDelete('cascade');
+            // $table->unsignedBigInteger('status_id');
+            // $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
+            // $table->unsignedBigInteger('shiper_id');
+            // $table->foreign('shiper_id')->references('id')->on('users')->onDelete('cascade');
             $table->boolean('allow_non_shipper')->default(false);
             $table->timestamps();
         });

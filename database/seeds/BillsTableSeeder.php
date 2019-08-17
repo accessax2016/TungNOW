@@ -15,8 +15,8 @@ class BillsTableSeeder extends Seeder
         for ($i = 1; $i <= 10; $i++) {
             $date = $faker->dateTimeThisYear;
             DB::table('bills')->insert([
-                'status_id' => 1,
-                'shiper_id' => 1,
+                // 'status_id' => 1,
+                // 'shiper_id' => 1,
                 'created_at' => $date,
                 'updated_at' => $date
             ]);

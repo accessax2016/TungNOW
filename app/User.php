@@ -27,7 +27,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'id', 'email', 'email_verified_at', 'active',
     ];
 
     /**
@@ -43,9 +43,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Product', 'user_id', 'id');
     }
 
-    public function bills() {
-        return $this->hasMany('App\Bill', 'shiper_id', 'id');
-    }
+    // public function bills() {
+    //     return $this->hasMany('App\Bill', 'shiper_id', 'id');
+    // }
 
     public function orders() {
         return $this->hasMany('App\Order', 'user_id', 'id');

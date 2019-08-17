@@ -13,6 +13,31 @@ use Illuminate\Http\Request;
 |
 */
 
+// User
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});
+Route::post('logout', 'UserController@logout');
+Route::post('register', 'UserController@register');
+
+// Product
+Route::group(['prefix' => 'products'], function() {
+    Route::get('', 'ProductController@index');
+    Route::get('{id}', 'ProductController@show');
+    Route::post('', 'ProductController@store');
+});
+
+// Bill
+Route::group(['prefix' => 'bills'], function() {
+    Route::get('', 'BillController@index');
+    Route::get('{id}', 'BillController@show');
+    Route::post('', 'BillController@store');
+});
+
+// Order
+Route::group(['prefix' => 'orders'], function() {
+    Route::post('', 'OrderController@store');
+    Route::put('{id}', 'OrderController@update');
+    Route::put('status/{id}', 'OrderController@updateStatus');
+    Route::delete('{id}', 'OrderController@destroy');
 });
