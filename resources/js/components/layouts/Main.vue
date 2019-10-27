@@ -20,7 +20,7 @@ export default {
 
 <style lang="scss" scoped>
 .main {
-  height: 70%;
+  height: 65%;
 }
 
 @media only screen and (min-width: 768px) {

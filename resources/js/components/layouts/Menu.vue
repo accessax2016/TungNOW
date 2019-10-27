@@ -4,7 +4,7 @@
     <div class="content-menu p-3 d-flex flex-column justify-content-between align-items-center">
       <Logo></Logo>
       <TimeCountdown></TimeCountdown>
-      <div class="contact">Lorem ipsum dolor sit.</div>
+      <Contact></Contact>
     </div>
   </div>
 </template>
@@ -12,11 +12,13 @@
 <script>
 import TimeCountdownVue from '../widgets/TimeCountdown.vue';
 import LogoVue from '../widgets/Logo.vue';
+import ContactVue from '../widgets/Contact.vue';
 
 export default {
     components: {
         Logo: LogoVue,
-        TimeCountdown: TimeCountdownVue
+        TimeCountdown: TimeCountdownVue,
+        Contact: ContactVue
     }
 };
 </script>
@@ -24,7 +26,7 @@ export default {
 <style lang="scss" scoped>
 .menu {
   position: relative;
-  height: 30%;
+  height: 35%;
   color: white;
 }
 
