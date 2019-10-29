@@ -3,7 +3,10 @@ import VueRouter from 'vue-router';
 
 
 import App from '../App.vue';
-import ExampleComponent from '../components/ExampleComponent.vue';
+import BillListVue from '../components/pages/bills/BillList.vue';
+import ProductListVue from '../components/pages/products/ProductList.vue';
+import LoginVue from '../components/pages/auth/Login.vue';
+import RegisterVue from '../components/pages/auth/Register.vue';
 
 Vue.use(VueRouter);
 
@@ -16,11 +19,32 @@ const routers = new VueRouter({
             children: [
                 {
                     path: '',
-                    component: ExampleComponent,
-                    name: 'home'
+                    name: 'home',
+                    redirect: 'bills'
+                },
+                {
+                    path: 'login',
+                    component: LoginVue,
+                    name: 'login'
+                },
+                {
+                    path: 'register',
+                    component: RegisterVue,
+                    name: 'register'
+                },
+                {
+                    path: 'bills',
+                    component: BillListVue,
+                    name: 'bills'
+                },
+                {
+                    path: 'products',
+                    component: ProductListVue,
+                    name: 'products'
                 },
             ]
-        }
+        },
+        
     ]
 });
 
