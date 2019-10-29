@@ -9,16 +9,75 @@
       </router-link>
     </div>
     <div class="user-section flex-grow-1 d-flex align-items-center justify-content-end">
-      <div class="user d-flex align-items-center justify-content-end">
-        <img class="img-avatar img-thumbnail" src="/assets/images/default-avatar.jpg" alt="avatar" />
-        <p class="mb-0 ml-3 name">Hi, Thanh Tung</p>
+      <div v-if="!currentUser" class="d-flex">
+        <router-link :to="{ name: 'login' }" class="nav-link">
+          <strong>LOGIN</strong>
+        </router-link>
+        <router-link :to="{ name: 'register' }" class="nav-link">
+          <strong>REGISTER</strong>
+        </router-link>
+      </div>
+      <div v-if="currentUser" class="user d-flex align-items-center justify-content-end">
+        <div class="dropdown">
+          <div
+            class="d-flex align-items-center dropdown-toggle"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <img
+              class="img-avatar img-thumbnail"
+              src="/assets/images/default-avatar.jpg"
+              alt="avatar"
+            />
+            <p class="mb-0 ml-3 name">Hi, Thanh Tung</p>
+          </div>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" @click="logout">Logout</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      currentUser: null
+    };
+  },
+  // computed: {
+  //   currentUser() {
+  //     return this.$store.getters["user/getCurrentUser"];
+  //   }
+  // },
+  methods: {
+    getCurrentUser() {
+      this.currentUser = this.$store.getters["user/getCurrentUser"];
+    },
+    logout() {
+      this.$auth.destroyToken();
+      this.$store.dispatch("user/logout");
+      this.getCurrentUser();
+      this.$router.push({ name: "login" });
+    },
+    fetchCurrentUser() {
+      this.$store
+        .dispatch("user/fetchCurrentUser")
+        .then(response => {
+          this.getCurrentUser();
+        })
+        .catch(error => {});
+    }
+  },
+  created() {
+    if (this.$auth.isAuthenticated()) {
+      this.fetchCurrentUser();
+    }
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -27,6 +86,9 @@ export default {};
   .user-section {
     .user {
       cursor: pointer;
+      .dropdown-toggle::after {
+        display: none;
+      }
       .img-avatar {
         border-radius: 50%;
         width: 50px;

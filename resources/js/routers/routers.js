@@ -25,12 +25,18 @@ const routers = new VueRouter({
                 {
                     path: 'login',
                     component: LoginVue,
-                    name: 'login'
+                    name: 'login',
+                    meta: {
+                        guest: true
+                    }
                 },
                 {
                     path: 'register',
                     component: RegisterVue,
-                    name: 'register'
+                    name: 'register',
+                    meta: {
+                        guest: true
+                    }
                 },
                 {
                     path: 'bills',

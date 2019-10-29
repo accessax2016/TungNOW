@@ -10,8 +10,30 @@ require('./bootstrap');
 import Vue from 'vue';
 import routers from './routers/routers';
 import vSelect from 'vue-select';
+import Auth from './packages/auth/index';
+import stores from './stores/index';
 
 Vue.component('v-select', vSelect);
+Vue.use(Auth);
+
+routers.beforeEach((to, from, next) => {
+	if (to.matched.some(record => record.meta.guest)) {
+		if (Vue.auth.isAuthenticated()) {
+			next({ name: 'home' });
+		}
+		else {
+			next();
+		}
+	}
+	else {
+        if (Vue.auth.isAuthenticated()) {
+            next();
+		}
+		else {
+            next({ name: 'login' });
+		}
+	}
+});
 
 /**
  * The following block of code may be used to automatically register your
@@ -35,6 +57,7 @@ Vue.component('v-select', vSelect);
 const app = new Vue({
     el: '#app',
     router: routers,
+    store: stores
 });
 
 // Vue.config.devtools = false

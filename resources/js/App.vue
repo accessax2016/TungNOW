@@ -14,8 +14,8 @@ export default {
     Background: BackgroundVue,
     Main: MainVue
   },
-  mounted() {
-    console.log("run");
+  created() {
+    this.$auth.setAuthorizationHeader();
   }
 };
 </script>
