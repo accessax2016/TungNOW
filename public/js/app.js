@@ -39862,115 +39862,126 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "navbar-container d-flex mb-3" }, [
-    _c(
-      "div",
-      { staticClass: "d-flex" },
-      [
-        _c(
-          "router-link",
-          { staticClass: "nav-link", attrs: { to: { name: "bills" } } },
-          [_c("strong", [_vm._v("HOME")])]
-        ),
-        _vm._v(" "),
-        _c(
-          "router-link",
-          { staticClass: "nav-link", attrs: { to: { name: "products" } } },
-          [_c("strong", [_vm._v("FOOD")])]
-        )
-      ],
-      1
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass:
-          "user-section flex-grow-1 d-flex align-items-center justify-content-end"
-      },
-      [
-        !_vm.currentUser
-          ? _c(
-              "div",
-              { staticClass: "d-flex" },
-              [
-                _c(
-                  "router-link",
-                  { staticClass: "nav-link", attrs: { to: { name: "login" } } },
-                  [_c("strong", [_vm._v("LOGIN")])]
-                ),
-                _vm._v(" "),
-                _c(
-                  "router-link",
-                  {
-                    staticClass: "nav-link",
-                    attrs: { to: { name: "register" } }
-                  },
-                  [_c("strong", [_vm._v("REGISTER")])]
-                )
-              ],
-              1
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.currentUser
-          ? _c(
-              "div",
-              {
-                staticClass:
-                  "user d-flex align-items-center justify-content-end"
-              },
-              [
-                _c("div", { staticClass: "dropdown" }, [
+  return _c(
+    "div",
+    {
+      staticClass:
+        "navbar-container d-flex mb-3 flex-column flex-md-row align-items-center"
+    },
+    [
+      _c(
+        "div",
+        { staticClass: "order-2 order-md-1 d-flex" },
+        [
+          _c(
+            "router-link",
+            { staticClass: "nav-link", attrs: { to: { name: "bills" } } },
+            [_c("strong", [_vm._v("HOME")])]
+          ),
+          _vm._v(" "),
+          _c(
+            "router-link",
+            { staticClass: "nav-link", attrs: { to: { name: "products" } } },
+            [_c("strong", [_vm._v("FOOD")])]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            "order-1 order-md-2 user-section flex-grow-1 d-flex align-items-center justify-content-end"
+        },
+        [
+          !_vm.currentUser
+            ? _c(
+                "div",
+                { staticClass: "d-flex" },
+                [
                   _c(
-                    "div",
+                    "router-link",
                     {
-                      staticClass: "d-flex align-items-center dropdown-toggle",
-                      attrs: {
-                        "data-toggle": "dropdown",
-                        "aria-haspopup": "true",
-                        "aria-expanded": "false"
-                      }
+                      staticClass: "nav-link",
+                      attrs: { to: { name: "login" } }
                     },
-                    [
-                      _c("img", {
-                        staticClass: "img-avatar img-thumbnail",
-                        attrs: {
-                          src: _vm.sourceImage(_vm.currentUser.image),
-                          alt: "avatar"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "mb-0 ml-3 name" }, [
-                        _vm._v("Hi, " + _vm._s(_vm.currentUser.name))
-                      ])
-                    ]
+                    [_c("strong", [_vm._v("LOGIN")])]
                   ),
                   _vm._v(" "),
                   _c(
-                    "div",
+                    "router-link",
                     {
-                      staticClass: "dropdown-menu",
-                      attrs: { "aria-labelledby": "dropdownMenuButton" }
+                      staticClass: "nav-link",
+                      attrs: { to: { name: "register" } }
                     },
-                    [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "dropdown-item",
-                          on: { click: _vm.logout }
-                        },
-                        [_vm._v("Logout")]
-                      )
-                    ]
+                    [_c("strong", [_vm._v("REGISTER")])]
                   )
-                ])
-              ]
-            )
-          : _vm._e()
-      ]
-    )
-  ])
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.currentUser
+            ? _c(
+                "div",
+                {
+                  staticClass:
+                    "user d-flex align-items-center justify-content-end"
+                },
+                [
+                  _c("div", { staticClass: "dropdown" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "d-flex align-items-center dropdown-toggle",
+                        attrs: {
+                          "data-toggle": "dropdown",
+                          "aria-haspopup": "true",
+                          "aria-expanded": "false"
+                        }
+                      },
+                      [
+                        _c("img", {
+                          staticClass: "img-avatar img-thumbnail",
+                          attrs: {
+                            src: _vm.sourceImage(_vm.currentUser.image),
+                            alt: "avatar"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "mb-0 ml-3 name" }, [
+                          _vm._v("Hi, " + _vm._s(_vm.currentUser.name))
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "dropdown-menu",
+                        attrs: { "aria-labelledby": "dropdownMenuButton" }
+                      },
+                      [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "dropdown-item",
+                            on: { click: _vm.logout }
+                          },
+                          [_vm._v("Logout")]
+                        )
+                      ]
+                    )
+                  ])
+                ]
+              )
+            : _vm._e()
+        ]
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

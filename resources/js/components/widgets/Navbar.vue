@@ -1,6 +1,6 @@
 <template>
-  <div class="navbar-container d-flex mb-3">
-    <div class="d-flex">
+  <div class="navbar-container d-flex mb-3 flex-column flex-md-row align-items-center">
+    <div class="order-2 order-md-1 d-flex">
       <router-link :to="{ name: 'bills' }" class="nav-link">
         <strong>HOME</strong>
       </router-link>
@@ -8,7 +8,7 @@
         <strong>FOOD</strong>
       </router-link>
     </div>
-    <div class="user-section flex-grow-1 d-flex align-items-center justify-content-end">
+    <div class="order-1 order-md-2 user-section flex-grow-1 d-flex align-items-center justify-content-end">
       <div v-if="!currentUser" class="d-flex">
         <router-link :to="{ name: 'login' }" class="nav-link">
           <strong>LOGIN</strong>
