@@ -35,8 +35,8 @@ const mutations = {
     [types.ORDER_DELETE]: (state, id) => {
         state.bill.orders.splice(state.bill.orders.map(order => order.id).indexOf(id), 1);
     },
-    [types.BILL_DISABLED]: (state, bill) => {
-        state.disabled = true;
+    [types.BILL_DISABLED]: (state, disabled) => {
+        state.disabled = disabled;
     },
 }
 // Actions
@@ -98,8 +98,8 @@ const actions = {
 	        });
 		});
     },
-    setDisabledBill: ({ commit }) => {
-        commit(types.BILL_DISABLED);
+    setDisabledBill: ({ commit }, disabled) => {
+        commit(types.BILL_DISABLED, disabled);
     }
 }
 

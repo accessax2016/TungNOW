@@ -2584,19 +2584,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     FlipCountdown: vue2_flip_countdown__WEBPACK_IMPORTED_MODULE_0___default.a
   },
   data: function data() {
-    return {};
+    return {
+      isProcessing: false
+    };
   },
   computed: {
     getTimeDeadline: function getTimeDeadline() {
       return {
-        hours: 0,
-        min: 59,
+        hours: 16,
+        min: 30,
         sec: 0,
         ms: 0
       };
@@ -2608,6 +2613,10 @@ __webpack_require__.r(__webpack_exports__);
       deadline.setHours(timeDeadline.hours, timeDeadline.min, timeDeadline.sec, timeDeadline.ms);
 
       if (cur > deadline) {
+        if (cur.getHours() - deadline.getHours() < 1) {
+          this.isProcessing = true;
+        }
+
         deadline.setDate(deadline.getDate() + 1);
       }
 
@@ -2635,9 +2644,17 @@ __webpack_require__.r(__webpack_exports__);
       var date = new Date();
 
       if (date.getHours() === _this.getTimeDeadline.hours && date.getMinutes() === _this.getTimeDeadline.min) {
-        _this.$store.dispatch("bill/setDisabledBill");
+        _this.isProcessing = true;
+
+        _this.$store.dispatch("bill/setDisabledBill", true);
       }
-    }, 60000);
+
+      if (date.getHours() === _this.getTimeDeadline.hours + 1 && date.getMinutes() === _this.getTimeDeadline.min) {
+        _this.isProcessing = false;
+
+        _this.$store.dispatch("bill/setDisabledBill", false);
+      }
+    }, 1000);
   }
 });
 
@@ -40360,12 +40377,16 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "d-flex flex-column" }, [
-        _c(
-          "div",
-          { staticClass: "time-countdown" },
-          [_c("flip-countdown", { attrs: { deadline: _vm.getDeadline } })],
-          1
-        ),
+        !_vm.isProcessing
+          ? _c(
+              "div",
+              { staticClass: "time-countdown" },
+              [_c("flip-countdown", { attrs: { deadline: _vm.getDeadline } })],
+              1
+            )
+          : _c("div", [
+              _c("h1", [_vm._v("Game Over !!! TungNOW is delivering")])
+            ]),
         _vm._v(" "),
         _c("button", { staticClass: "btn btn-lg btn-order" }, [
           _vm._v("ORDER NOW")
@@ -57987,8 +58008,8 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, _mutation_types__W
   state.bill.orders.splice(state.bill.orders.map(function (order) {
     return order.id;
   }).indexOf(id), 1);
-}), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["BILL_DISABLED"], function (state, bill) {
-  state.disabled = true;
+}), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["BILL_DISABLED"], function (state, disabled) {
+  state.disabled = disabled;
 }), _mutations); // Actions
 
 var actions = {
@@ -58045,9 +58066,9 @@ var actions = {
       });
     });
   },
-  setDisabledBill: function setDisabledBill(_ref5) {
+  setDisabledBill: function setDisabledBill(_ref5, disabled) {
     var commit = _ref5.commit;
-    commit(_mutation_types__WEBPACK_IMPORTED_MODULE_0__["BILL_DISABLED"]);
+    commit(_mutation_types__WEBPACK_IMPORTED_MODULE_0__["BILL_DISABLED"], disabled);
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({

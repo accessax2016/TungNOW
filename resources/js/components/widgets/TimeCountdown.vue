@@ -3,8 +3,11 @@
     <img class="ciu-image d-none d-xl-block" src="/assets/images/ciu.png" alt="ciu" />
     <h1 class="logan text-center">Superman TungNOW is coming !!!</h1>
     <div class="d-flex flex-column">
-      <div class="time-countdown">
+      <div v-if="!isProcessing" class="time-countdown">
         <flip-countdown :deadline="getDeadline"></flip-countdown>
+      </div>
+      <div v-else>
+        <h1>Game Over !!! TungNOW is delivering</h1>
       </div>
       <button class="btn btn-lg btn-order">ORDER NOW</button>
     </div>
@@ -19,13 +22,15 @@ export default {
     FlipCountdown
   },
   data() {
-    return {};
+    return {
+      isProcessing: false
+    };
   },
   computed: {
     getTimeDeadline() {
       return {
-        hours: 0,
-        min: 59,
+        hours: 16,
+        min: 30,
         sec: 0,
         ms: 0
       };
@@ -41,6 +46,9 @@ export default {
         timeDeadline.ms
       );
       if (cur > deadline) {
+        if ((cur.getHours() - deadline.getHours()) < 1) {
+          this.isProcessing = true;
+        }
         deadline.setDate(deadline.getDate() + 1);
       }
       return this.generateDeadlineString(deadline);
@@ -67,9 +75,17 @@ export default {
         date.getHours() === this.getTimeDeadline.hours &&
         date.getMinutes() === this.getTimeDeadline.min
       ) {
-        this.$store.dispatch("bill/setDisabledBill");
+        this.isProcessing = true;
+        this.$store.dispatch("bill/setDisabledBill", true);
       }
-    }, 60000);
+      if (
+        date.getHours() === (this.getTimeDeadline.hours + 1) &&
+        date.getMinutes() === this.getTimeDeadline.min
+      ) {
+        this.isProcessing = false;
+        this.$store.dispatch("bill/setDisabledBill", false);
+      }
+    }, 1000);
   }
 };
 </script>
