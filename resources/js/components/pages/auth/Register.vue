@@ -6,7 +6,7 @@
           <div class="card-header">Register</div>
 
           <div class="card-body">
-            <form method="POST">
+            <form @submit.prevent="register">
               <div class="form-group row">
                 <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
@@ -19,6 +19,7 @@
                     required
                     autocomplete="name"
                     autofocus
+                    v-model="name"
                   />
                 </div>
               </div>
@@ -34,6 +35,7 @@
                     name="email"
                     required
                     autocomplete="email"
+                    v-model="email"
                   />
                 </div>
               </div>
@@ -49,6 +51,7 @@
                     name="password"
                     required
                     autocomplete="new-password"
+                    v-model="password"
                   />
                 </div>
               </div>
@@ -67,6 +70,7 @@
                     name="password_confirmation"
                     required
                     autocomplete="new-password"
+                    v-model="confirm_password"
                   />
                 </div>
               </div>
@@ -85,7 +89,44 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      name: '',
+      email: '',
+      password: '',
+      confirm_password: ''
+    };
+  },
+  methods: {
+    register() {
+      let payload = {
+        user: {
+          name: this.name,
+          email: this.email,
+          password: this.password,
+          confirm_password: this.confirm_password
+        }
+      };
+      
+      this.$store
+        .dispatch('user/register', payload)
+        .then(response => {
+          if (response.data.hasOwnProperty('errors')) {
+            this.name = '';
+            this.email = '';
+            this.password = '';
+            this.confirm_password = '';
+          } else {
+            this.$router.push({ name: 'login' });
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  }
+};
 </script>
 
 <style>

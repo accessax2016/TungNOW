@@ -30,7 +30,7 @@
               src="/assets/images/default-avatar.jpg"
               alt="avatar"
             />
-            <p class="mb-0 ml-3 name">Hi, Thanh Tung</p>
+            <p class="mb-0 ml-3 name">Hi, {{currentUser.name}}</p>
           </div>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" @click="logout">Logout</a>
@@ -43,32 +43,21 @@
 
 <script>
 export default {
-  data() {
-    return {
-      currentUser: null
-    };
+  computed: {
+    currentUser() {
+      return this.$store.getters["user/getCurrentUser"];
+    }
   },
-  // computed: {
-  //   currentUser() {
-  //     return this.$store.getters["user/getCurrentUser"];
-  //   }
-  // },
   methods: {
-    getCurrentUser() {
-      this.currentUser = this.$store.getters["user/getCurrentUser"];
-    },
     logout() {
       this.$auth.destroyToken();
       this.$store.dispatch("user/logout");
-      this.getCurrentUser();
       this.$router.push({ name: "login" });
     },
     fetchCurrentUser() {
       this.$store
         .dispatch("user/fetchCurrentUser")
-        .then(response => {
-          this.getCurrentUser();
-        })
+        .then(response => {})
         .catch(error => {});
     }
   },

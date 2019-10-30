@@ -16,9 +16,7 @@ const getters = {
 // Mutations
 const mutations = {
 	[types.CURRENT_USER]: (state, user) => {
-		if (user) {
-			state.current_user = user;
-		}
+		state.current_user = user;
 	},
 }
 // Actions

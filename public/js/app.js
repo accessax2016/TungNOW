@@ -2020,7 +2020,48 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      name: '',
+      email: '',
+      password: '',
+      confirm_password: ''
+    };
+  },
+  methods: {
+    register: function register() {
+      var _this = this;
+
+      var payload = {
+        user: {
+          name: this.name,
+          email: this.email,
+          password: this.password,
+          confirm_password: this.confirm_password
+        }
+      };
+      this.$store.dispatch('user/register', payload).then(function (response) {
+        if (response.data.hasOwnProperty('errors')) {
+          _this.name = '';
+          _this.email = '';
+          _this.password = '';
+          _this.confirm_password = '';
+        } else {
+          _this.$router.push({
+            name: 'login'
+          });
+        }
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
+  }
+});
 
 /***/ }),
 
@@ -2235,34 +2276,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      currentUser: null
-    };
+  computed: {
+    currentUser: function currentUser() {
+      return this.$store.getters["user/getCurrentUser"];
+    }
   },
-  // computed: {
-  //   currentUser() {
-  //     return this.$store.getters["user/getCurrentUser"];
-  //   }
-  // },
   methods: {
-    getCurrentUser: function getCurrentUser() {
-      this.currentUser = this.$store.getters["user/getCurrentUser"];
-    },
     logout: function logout() {
       this.$auth.destroyToken();
       this.$store.dispatch("user/logout");
-      this.getCurrentUser();
       this.$router.push({
         name: "login"
       });
     },
     fetchCurrentUser: function fetchCurrentUser() {
-      var _this = this;
-
-      this.$store.dispatch("user/fetchCurrentUser").then(function (response) {
-        _this.getCurrentUser();
-      })["catch"](function (error) {});
+      this.$store.dispatch("user/fetchCurrentUser").then(function (response) {})["catch"](function (error) {});
     }
   },
   created: function created() {
@@ -39039,21 +39067,24 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [_vm._v("Register")]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _c("form", { attrs: { method: "POST" } }, [
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-header" }, [_vm._v("Register")]),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-body" }, [
+            _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.register($event)
+                  }
+                }
+              },
+              [
                 _c("div", { staticClass: "form-group row" }, [
                   _c(
                     "label",
@@ -39066,6 +39097,14 @@ var staticRenderFns = [
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-6" }, [
                     _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.name,
+                          expression: "name"
+                        }
+                      ],
                       staticClass: "form-control",
                       attrs: {
                         id: "name",
@@ -39074,6 +39113,15 @@ var staticRenderFns = [
                         required: "",
                         autocomplete: "name",
                         autofocus: ""
+                      },
+                      domProps: { value: _vm.name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.name = $event.target.value
+                        }
                       }
                     })
                   ])
@@ -39091,6 +39139,14 @@ var staticRenderFns = [
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-6" }, [
                     _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.email,
+                          expression: "email"
+                        }
+                      ],
                       staticClass: "form-control",
                       attrs: {
                         id: "email",
@@ -39098,6 +39154,15 @@ var staticRenderFns = [
                         name: "email",
                         required: "",
                         autocomplete: "email"
+                      },
+                      domProps: { value: _vm.email },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.email = $event.target.value
+                        }
                       }
                     })
                   ])
@@ -39115,6 +39180,14 @@ var staticRenderFns = [
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-6" }, [
                     _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.password,
+                          expression: "password"
+                        }
+                      ],
                       staticClass: "form-control",
                       attrs: {
                         id: "password",
@@ -39122,6 +39195,15 @@ var staticRenderFns = [
                         name: "password",
                         required: "",
                         autocomplete: "new-password"
+                      },
+                      domProps: { value: _vm.password },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.password = $event.target.value
+                        }
                       }
                     })
                   ])
@@ -39139,6 +39221,14 @@ var staticRenderFns = [
                   _vm._v(" "),
                   _c("div", { staticClass: "col-md-6" }, [
                     _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.confirm_password,
+                          expression: "confirm_password"
+                        }
+                      ],
                       staticClass: "form-control",
                       attrs: {
                         id: "password-confirm",
@@ -39146,27 +39236,41 @@ var staticRenderFns = [
                         name: "password_confirmation",
                         required: "",
                         autocomplete: "new-password"
+                      },
+                      domProps: { value: _vm.confirm_password },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.confirm_password = $event.target.value
+                        }
                       }
                     })
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "form-group row mb-0" }, [
-                  _c("div", { staticClass: "col-md-6 offset-md-4" }, [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { type: "submit" }
-                      },
-                      [_vm._v("Register")]
-                    )
-                  ])
-                ])
-              ])
-            ])
+                _vm._m(0)
+              ]
+            )
           ])
         ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group row mb-0" }, [
+      _c("div", { staticClass: "col-md-6 offset-md-4" }, [
+        _c(
+          "button",
+          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+          [_vm._v("Register")]
+        )
       ])
     ])
   }
@@ -39523,7 +39627,30 @@ var render = function() {
               },
               [
                 _c("div", { staticClass: "dropdown" }, [
-                  _vm._m(0),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "d-flex align-items-center dropdown-toggle",
+                      attrs: {
+                        "data-toggle": "dropdown",
+                        "aria-haspopup": "true",
+                        "aria-expanded": "false"
+                      }
+                    },
+                    [
+                      _c("img", {
+                        staticClass: "img-avatar img-thumbnail",
+                        attrs: {
+                          src: "/assets/images/default-avatar.jpg",
+                          alt: "avatar"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "mb-0 ml-3 name" }, [
+                        _vm._v("Hi, " + _vm._s(_vm.currentUser.name))
+                      ])
+                    ]
+                  ),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -39550,32 +39677,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "d-flex align-items-center dropdown-toggle",
-        attrs: {
-          "data-toggle": "dropdown",
-          "aria-haspopup": "true",
-          "aria-expanded": "false"
-        }
-      },
-      [
-        _c("img", {
-          staticClass: "img-avatar img-thumbnail",
-          attrs: { src: "/assets/images/default-avatar.jpg", alt: "avatar" }
-        }),
-        _vm._v(" "),
-        _c("p", { staticClass: "mb-0 ml-3 name" }, [_vm._v("Hi, Thanh Tung")])
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -57037,9 +57139,7 @@ var getters = {
 }; // Mutations
 
 var mutations = _defineProperty({}, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["CURRENT_USER"], function (state, user) {
-  if (user) {
-    state.current_user = user;
-  }
+  state.current_user = user;
 }); // Actions
 
 
