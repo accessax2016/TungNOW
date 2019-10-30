@@ -44,5 +44,40 @@ class ProductController extends Controller
     	return response([
             'message' => 'Store product errors'
         ], 400);
-	}
+    }
+    
+    public function update(ProductRequest $request, $id)
+    {
+        $product = Product::find($id);
+        
+        $this->CheckAdmin();
+
+        $product->name = $request->name;
+        $product->price = $request->price;
+        $product->description = $request->description;
+        
+        if ($product->save()) {
+            return new ProductResource($product); 
+        }
+        return [
+            'message' => 'Update product errors'
+        ];
+    	
+    }
+
+    public function destroy($id)
+    {
+        $product = Product::find($id);
+
+        $this->CheckAdmin();
+
+        if ($product->delete()) {
+            return [
+                'message' => 'Destroy product successfully'
+            ];
+        }
+        return [
+            'message' => 'Destroy product errors'
+        ];
+    }
 }

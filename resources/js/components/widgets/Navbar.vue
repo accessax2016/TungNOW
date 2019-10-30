@@ -27,7 +27,7 @@
           >
             <img
               class="img-avatar img-thumbnail"
-              src="/assets/images/default-avatar.jpg"
+              :src="sourceImage(currentUser.image)"
               alt="avatar"
             />
             <p class="mb-0 ml-3 name">Hi, {{currentUser.name}}</p>
@@ -49,6 +49,9 @@ export default {
     }
   },
   methods: {
+    sourceImage(url) {
+      return "/assets/images/" + url;
+    },
     logout() {
       this.$auth.destroyToken();
       this.$store.dispatch("user/logout");

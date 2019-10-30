@@ -1,29 +1,22 @@
 <template>
   <div class="flex-grow-1 main-section d-flex flex-column">
-    <div class=" flex-grow-1 table-responsive-xl">
+    <div class="d-flex mb-3 bg-transparent">
+      <input type="text" class="form-control" placeholder="Add new food here" v-model="new_product" />
+      <button class="btn btn-primary ml-3" @click="addNewProduct()">ADD</button>
+    </div>
+    <div class="flex-grow-1 table-responsive-xl product-list">
       <table class="table table-striped table-hover">
         <thead>
           <tr>
-            <th>#</th>
-            <th>Food</th>
-            <th>Price (VNĐ)</th>
-            <th>Description</th>
-            <th>Actions</th>
+            <th class="sticky-top bg-white border-top-none">#</th>
+            <th class="sticky-top bg-white border-top-none">Food</th>
+            <th class="sticky-top bg-white border-top-none">Price (VNĐ)</th>
+            <th class="sticky-top bg-white border-top-none">Description</th>
+            <th class="sticky-top bg-white border-top-none">Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th>1</th>
-            <td>
-              <img class="img-food mr-1" src="/assets/images/default-product.png" alt="product" /> Banana
-            </td>
-            <td>9000</td>
-            <td>Lorem ipsum dolor sit amet.</td>
-            <td>
-              <a>Edit</a> |
-              <a>Delete</a>
-            </td>
-          </tr>
+          <ProductItem v-for="(product, index) in products" :key="product.id" :product="product" :index="index"></ProductItem>
         </tbody>
       </table>
     </div>
@@ -31,7 +24,50 @@
 </template>
 
 <script>
-export default {};
+import ProductItemVue from './ProductItem.vue';
+export default {
+  components: {
+    ProductItem: ProductItemVue
+  },
+  data() {
+    return {
+      new_product: ''
+    };
+  },
+  computed: {
+    products() {
+      return this.$store.getters['product/getProductList'];
+    }
+  },
+  methods: {
+    fetchProductList() {
+      this.$store
+        .dispatch('product/fetchProductList')
+        .then(response => {})
+        .catch(error => {});
+    },
+    addNewProduct() {
+      if (!this.new_product) {
+        return;
+      }
+      const payload = {
+        product: {
+          name: this.new_product,
+          price: 0
+        }
+      };
+      this.$store
+        .dispatch('product/fetchProductStore', payload)
+        .then(response => {
+          this.new_product = '';
+        })
+        .catch(error => {});
+    },
+  },
+  created() {
+    this.fetchProductList();
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -39,11 +75,13 @@ export default {};
   > * {
     background-color: white;
   }
-  .table th, .table td {
-    vertical-align: baseline;
-  }
-  .img-food {
-    width: 50px;
+  .product-list {
+    height: 0;
+    overflow: auto;
+    .table th,
+    .table td {
+      vertical-align: baseline;
+    }
   }
 }
 </style>

@@ -100,7 +100,7 @@ export default {
   },
   methods: {
     register() {
-      let payload = {
+      const payload = {
         user: {
           name: this.name,
           email: this.email,
@@ -121,9 +121,7 @@ export default {
             this.$router.push({ name: 'login' });
           }
         })
-        .catch(error => {
-          console.log(error);
-        });
+        .catch(error => {});
     }
   }
 };

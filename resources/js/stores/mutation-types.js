@@ -1,1 +1,5 @@
 export const CURRENT_USER = 'CURRENT_USER';
+export const PRODUCT_LIST = 'PRODUCT_LIST';
+export const PRODUCT_STORE = 'PRODUCT_STORE';
+export const PRODUCT_UPDATE = 'PRODUCT_UPDATE';
+export const PRODUCT_DESTROY = 'PRODUCT_DESTROY';
