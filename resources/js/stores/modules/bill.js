@@ -38,6 +38,9 @@ const mutations = {
     [types.BILL_DISABLED]: (state, disabled) => {
         state.disabled = disabled;
     },
+    [types.BILL_STORE]: (state, bill) => {
+        state.bill = bill;
+    },
 }
 // Actions
 const actions = {
@@ -55,6 +58,20 @@ const actions = {
                     reject(error);
                 });
         });
+    },
+    fetchBillStore: ({ commit }, payload) => {
+		return new Promise((resolve, reject) => {
+			axios.post('/api/bills', payload.bill)
+			.then(response => {
+                // console.log(response);
+                commit(types.BILL_STORE, response.data.data);
+	            resolve(response);
+	        })
+			.catch(error => {
+	            // console.log(error);
+	            reject(error);
+	        });
+		});
     },
     fetchOrderStore: ({ commit }, payload) => {
 		return new Promise((resolve, reject) => {

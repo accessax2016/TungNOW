@@ -8,3 +8,4 @@ export const ORDER_ADD = 'ORDER_ADD';
 export const ORDER_EDIT = 'ORDER_EDIT';
 export const ORDER_DELETE = 'ORDER_DELETE';
 export const BILL_DISABLED = 'BILL_DISABLED';
+export const BILL_STORE = 'BILL_STORE';

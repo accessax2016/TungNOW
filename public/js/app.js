@@ -2530,6 +2530,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
     currentUser: function currentUser() {
@@ -2549,6 +2550,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     fetchCurrentUser: function fetchCurrentUser() {
       this.$store.dispatch("user/fetchCurrentUser").then(function (response) {})["catch"](function (error) {});
+    },
+    addNewBill: function addNewBill() {
+      var payload = {
+        bill: {}
+      };
+      this.$store.dispatch("bill/fetchBillStore", payload).then(function (response) {})["catch"](function (error) {});
     }
   },
   created: function created() {
@@ -40288,6 +40295,21 @@ var render = function() {
                     "user d-flex align-items-center justify-content-end"
                 },
                 [
+                  _vm.currentUser.admin
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary mr-3",
+                          on: {
+                            click: function($event) {
+                              return _vm.addNewBill()
+                            }
+                          }
+                        },
+                        [_vm._v("NEW BILL")]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
                   _c("div", { staticClass: "dropdown" }, [
                     _c(
                       "div",
@@ -58010,6 +58032,8 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, _mutation_types__W
   }).indexOf(id), 1);
 }), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["BILL_DISABLED"], function (state, disabled) {
   state.disabled = disabled;
+}), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["BILL_STORE"], function (state, bill) {
+  state.bill = bill;
 }), _mutations); // Actions
 
 var actions = {
@@ -58027,8 +58051,21 @@ var actions = {
       });
     });
   },
-  fetchOrderStore: function fetchOrderStore(_ref2, payload) {
+  fetchBillStore: function fetchBillStore(_ref2, payload) {
     var commit = _ref2.commit;
+    return new Promise(function (resolve, reject) {
+      axios.post('/api/bills', payload.bill).then(function (response) {
+        // console.log(response);
+        commit(_mutation_types__WEBPACK_IMPORTED_MODULE_0__["BILL_STORE"], response.data.data);
+        resolve(response);
+      })["catch"](function (error) {
+        // console.log(error);
+        reject(error);
+      });
+    });
+  },
+  fetchOrderStore: function fetchOrderStore(_ref3, payload) {
+    var commit = _ref3.commit;
     return new Promise(function (resolve, reject) {
       axios.post('/api/orders', payload.order).then(function (response) {
         // console.log(response);
@@ -58040,8 +58077,8 @@ var actions = {
       });
     });
   },
-  fetchOrderUpdate: function fetchOrderUpdate(_ref3, payload) {
-    var commit = _ref3.commit;
+  fetchOrderUpdate: function fetchOrderUpdate(_ref4, payload) {
+    var commit = _ref4.commit;
     return new Promise(function (resolve, reject) {
       axios.put('/api/orders/' + payload.id, payload.order).then(function (response) {
         // console.log(response);
@@ -58053,8 +58090,8 @@ var actions = {
       });
     });
   },
-  fetchOrderDestroy: function fetchOrderDestroy(_ref4, payload) {
-    var commit = _ref4.commit;
+  fetchOrderDestroy: function fetchOrderDestroy(_ref5, payload) {
+    var commit = _ref5.commit;
     return new Promise(function (resolve, reject) {
       axios["delete"]('/api/orders/' + payload.id).then(function (response) {
         // console.log(response);
@@ -58066,8 +58103,8 @@ var actions = {
       });
     });
   },
-  setDisabledBill: function setDisabledBill(_ref5, disabled) {
-    var commit = _ref5.commit;
+  setDisabledBill: function setDisabledBill(_ref6, disabled) {
+    var commit = _ref6.commit;
     commit(_mutation_types__WEBPACK_IMPORTED_MODULE_0__["BILL_DISABLED"], disabled);
   }
 };
@@ -58271,7 +58308,7 @@ var actions = {
 /*!***********************************************!*\
   !*** ./resources/js/stores/mutation-types.js ***!
   \***********************************************/
-/*! exports provided: CURRENT_USER, PRODUCT_LIST, PRODUCT_STORE, PRODUCT_UPDATE, PRODUCT_DESTROY, BILL_TODAY, ORDER_ADD, ORDER_EDIT, ORDER_DELETE, BILL_DISABLED */
+/*! exports provided: CURRENT_USER, PRODUCT_LIST, PRODUCT_STORE, PRODUCT_UPDATE, PRODUCT_DESTROY, BILL_TODAY, ORDER_ADD, ORDER_EDIT, ORDER_DELETE, BILL_DISABLED, BILL_STORE */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -58286,6 +58323,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ORDER_EDIT", function() { return ORDER_EDIT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ORDER_DELETE", function() { return ORDER_DELETE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BILL_DISABLED", function() { return BILL_DISABLED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BILL_STORE", function() { return BILL_STORE; });
 var CURRENT_USER = 'CURRENT_USER';
 var PRODUCT_LIST = 'PRODUCT_LIST';
 var PRODUCT_STORE = 'PRODUCT_STORE';
@@ -58296,6 +58334,7 @@ var ORDER_ADD = 'ORDER_ADD';
 var ORDER_EDIT = 'ORDER_EDIT';
 var ORDER_DELETE = 'ORDER_DELETE';
 var BILL_DISABLED = 'BILL_DISABLED';
+var BILL_STORE = 'BILL_STORE';
 
 /***/ }),
 

@@ -18,6 +18,7 @@
         </router-link>
       </div>
       <div v-if="currentUser" class="user d-flex align-items-center justify-content-end">
+        <button v-if="currentUser.admin" class="btn btn-primary mr-3" @click="addNewBill()">NEW BILL</button>
         <div class="dropdown">
           <div
             class="d-flex align-items-center dropdown-toggle"
@@ -60,6 +61,15 @@ export default {
     fetchCurrentUser() {
       this.$store
         .dispatch("user/fetchCurrentUser")
+        .then(response => {})
+        .catch(error => {});
+    },
+    addNewBill() {
+      const payload = {
+        bill: {}
+      };
+      this.$store
+        .dispatch("bill/fetchBillStore", payload)
         .then(response => {})
         .catch(error => {});
     }
