@@ -83,11 +83,4 @@ export default {
 td {
   vertical-align: baseline;
 }
-.pointer {
-  cursor: pointer;
-  pointer-events: none;
-  &:hover {
-    text-decoration: underline !important;
-  }
-}
 </style>

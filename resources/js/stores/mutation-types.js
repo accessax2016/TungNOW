@@ -3,3 +3,7 @@ export const PRODUCT_LIST = 'PRODUCT_LIST';
 export const PRODUCT_STORE = 'PRODUCT_STORE';
 export const PRODUCT_UPDATE = 'PRODUCT_UPDATE';
 export const PRODUCT_DESTROY = 'PRODUCT_DESTROY';
+export const BILL_TODAY = 'BILL_TODAY';
+export const ORDER_ADD = 'ORDER_ADD';
+export const ORDER_EDIT = 'ORDER_EDIT';
+export const ORDER_DELETE = 'ORDER_DELETE';

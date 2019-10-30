@@ -1,0 +1,85 @@
+import * as types from '../mutation-types';
+
+// State
+const state = {
+    bill: {
+        id: 0,
+        orders: [],
+        date: ''
+    },
+}
+// Getters
+const getters = {
+    getBillToday: state => {
+        return state.bill;
+    },
+    getOrdersToday: state => {
+        return state.bill.orders;
+    },
+}
+// Mutations
+const mutations = {
+    [types.BILL_TODAY]: (state, bill) => {
+        state.bill = bill;
+    },
+    [types.ORDER_EDIT]: (state, order) => {
+        state.bill.orders.splice(state.bill.orders.map(order => order.id).indexOf(id), order);
+    },
+    [types.ORDER_DELETE]: (state, id) => {
+        state.bill.orders.splice(state.bill.orders.map(order => order.id).indexOf(id), 1);
+	},
+}
+// Actions
+const actions = {
+    fetchBillToday: ({ commit }) => {
+        return new Promise((resolve, reject) => {
+            axios.get('/api/bills?pageSize=1&pageNumber=1')
+                .then(response => {
+                    // console.log(response);
+                    const data = response.data.data;
+                    commit(types.BILL_TODAY, data.length > 0 ? data[0] : []);
+                    resolve(response);
+                })
+                .catch(error => {
+                    // console.log(error);
+                    reject(error);
+                });
+        });
+    },
+    fetchOrderUpdate: ({ commit }, payload) => {
+		return new Promise((resolve, reject) => {
+			axios.put('/api/orders/' + payload.id, payload.order)
+			.then(response => {
+                // console.log(response);
+                commit(types.ORDER_EDIT, response.data.data);
+	            resolve(response);
+	        })
+			.catch(error => {
+	            // console.log(error);
+	            reject(error);
+	        });
+		});
+    },
+    fetchOrderDestroy: ({ commit }, payload) => {
+		return new Promise((resolve, reject) => {
+			axios.delete('/api/orders/' + payload.id)
+			.then(response => {
+                // console.log(response);
+                commit(types.ORDER_DELETE, payload.id);
+	            resolve(response);
+	        })
+			.catch(error => {
+	            // console.log(error);
+	            reject(error);
+	        });
+		});
+	},
+}
+
+export default {
+    namespaced: true,
+    state,
+    getters,
+    mutations,
+    actions
+}
