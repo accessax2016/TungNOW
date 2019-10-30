@@ -2151,6 +2151,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     product: {
@@ -39589,31 +39591,35 @@ var render = function() {
     _c("td", [_vm._v(_vm._s(_vm.product.description))]),
     _vm._v(" "),
     _c("td", [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary",
-          on: {
-            click: function($event) {
-              return _vm.editProduct(_vm.product.id)
-            }
-          }
-        },
-        [_vm._v("Edit")]
-      ),
-      _vm._v("\n    |\n    "),
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary",
-          on: {
-            click: function($event) {
-              return _vm.deleteProduct(_vm.product.id)
-            }
-          }
-        },
-        [_vm._v("Delete")]
-      )
+      _vm.currentUser && _vm.currentUser.admin
+        ? _c("div", [
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                on: {
+                  click: function($event) {
+                    return _vm.editProduct(_vm.product.id)
+                  }
+                }
+              },
+              [_vm._v("Edit")]
+            ),
+            _vm._v("\n      |\n      "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                on: {
+                  click: function($event) {
+                    return _vm.deleteProduct(_vm.product.id)
+                  }
+                }
+              },
+              [_vm._v("Delete")]
+            )
+          ])
+        : _vm._e()
     ])
   ])
 }
