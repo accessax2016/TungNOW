@@ -18,7 +18,7 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-        return ProductResource::collection(Product::get());
+        return ProductResource::collection(Product::orderBy('created_at', 'desc')->get());
     }
 
     public function show($id)

@@ -1,6 +1,6 @@
 <template>
   <div class="flex-grow-1 main-section d-flex flex-column">
-    <v-select :options="options" placeholder="Please choose your food"></v-select>
+    <v-select v-model="addNew" :options="products" label="name" placeholder="Please choose your food" @input="setSelected"></v-select>
     <div class="flex-grow-1 table-responsive-xl mt-3 bill-list">
       <table class="table table-striped table-hover">
         <thead>
@@ -15,7 +15,13 @@
           </tr>
         </thead>
         <tbody>
-          <OrderItem v-for="(order, index) in orders" :key="order.id" :order="order" :index="index" :bill_id="bill.id"></OrderItem>
+          <OrderItem
+            v-for="(order, index) in orders"
+            :key="order.id"
+            :order="order"
+            :index="index"
+            :bill_id="bill.id"
+          ></OrderItem>
         </tbody>
       </table>
     </div>
@@ -30,7 +36,7 @@ export default {
   },
   data() {
     return {
-      options: ["foo", "bar", "baz"]
+      addNew: ''
     };
   },
   computed: {
@@ -39,6 +45,9 @@ export default {
     },
     orders() {
       return this.$store.getters["bill/getOrdersToday"];
+    },
+    products() {
+      return this.$store.getters['product/getProductList'];
     }
   },
   methods: {
@@ -47,10 +56,38 @@ export default {
         .dispatch("bill/fetchBillToday")
         .then(response => {})
         .catch(error => {});
-    }
+    },
+    fetchProductList() {
+      this.$store
+        .dispatch("product/fetchProductList")
+        .then(response => {})
+        .catch(error => {});
+    },
+    setSelected(value) {
+      this.addOrder(value.id)
+    },
+    addOrder(product_id) {
+      const payload = {
+        order: {
+          product_id: product_id,
+          status_id: 3,
+          bill_id: this.bill.id,
+          amount: 1,
+          note: null
+        }
+      };
+
+      this.$store
+        .dispatch("bill/fetchOrderStore", payload)
+        .then(response => {
+          this.addNew = '';
+        })
+        .catch(error => {});
+    },
   },
   created() {
     this.fetchBillToday();
+    this.fetchProductList();
   }
 };
 </script>
@@ -66,6 +103,9 @@ export default {
     .table th,
     .table td {
       vertical-align: baseline;
+    }
+    thead tr th {
+      z-index: 100 !important;
     }
   }
   .img-food {

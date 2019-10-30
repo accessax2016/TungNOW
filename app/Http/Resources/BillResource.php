@@ -17,7 +17,7 @@ class BillResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'orders' => OrderResource::collection($this->orders),
+            'orders' => OrderResource::collection($this->orders->sortByDesc('created_at')),
             'date' => $this->created_at->format('d/m/Y'),
         ];
     }

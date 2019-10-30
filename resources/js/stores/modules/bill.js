@@ -22,6 +22,9 @@ const mutations = {
     [types.BILL_TODAY]: (state, bill) => {
         state.bill = bill;
     },
+    [types.ORDER_ADD]: (state, order) => {
+		state.bill.orders.unshift(order);
+    },
     [types.ORDER_EDIT]: (state, order) => {
         state.bill.orders.splice(state.bill.orders.map(order => order.id).indexOf(id), order);
     },
@@ -45,6 +48,20 @@ const actions = {
                     reject(error);
                 });
         });
+    },
+    fetchOrderStore: ({ commit }, payload) => {
+		return new Promise((resolve, reject) => {
+			axios.post('/api/orders', payload.order)
+			.then(response => {
+                // console.log(response);
+                commit(types.ORDER_ADD, response.data.data);
+	            resolve(response);
+	        })
+			.catch(error => {
+	            // console.log(error);
+	            reject(error);
+	        });
+		});
     },
     fetchOrderUpdate: ({ commit }, payload) => {
 		return new Promise((resolve, reject) => {

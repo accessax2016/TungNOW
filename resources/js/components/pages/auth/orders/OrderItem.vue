@@ -21,9 +21,9 @@
     </td>
     <td>
       <div v-if="currentUser && currentUser.name === order.user.name">
-        <button class="btn btn-primary" @click="editProduct(order.id)">Edit</button>
+        <button class="btn btn-primary" @click="editOrder(order.id)">Edit</button>
         |
-        <button class="btn btn-primary" @click="deleteProduct(order.id)">Delete</button>
+        <button class="btn btn-primary" @click="deleteOrder(order.id)">Delete</button>
       </div>
     </td>
   </tr>
@@ -60,7 +60,7 @@ export default {
     sourceImage(url) {
       return "/assets/images/" + url;
     },
-    editProduct(id) {
+    editOrder(id) {
       const payload = {
         id: id,
         order: {
@@ -77,7 +77,7 @@ export default {
         .then(response => {})
         .catch(error => {});
     },
-    deleteProduct(id) {
+    deleteOrder(id) {
       const payload = {
         id: id
       };

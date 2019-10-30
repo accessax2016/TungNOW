@@ -2133,7 +2133,7 @@ __webpack_require__.r(__webpack_exports__);
     sourceImage: function sourceImage(url) {
       return "/assets/images/" + url;
     },
-    editProduct: function editProduct(id) {
+    editOrder: function editOrder(id) {
       var payload = {
         id: id,
         order: {
@@ -2146,7 +2146,7 @@ __webpack_require__.r(__webpack_exports__);
       };
       this.$store.dispatch("bill/fetchOrderUpdate", payload).then(function (response) {})["catch"](function (error) {});
     },
-    deleteProduct: function deleteProduct(id) {
+    deleteOrder: function deleteOrder(id) {
       var payload = {
         id: id
       };
@@ -2191,6 +2191,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2198,7 +2204,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      options: ["foo", "bar", "baz"]
+      addNew: ''
     };
   },
   computed: {
@@ -2207,15 +2213,41 @@ __webpack_require__.r(__webpack_exports__);
     },
     orders: function orders() {
       return this.$store.getters["bill/getOrdersToday"];
+    },
+    products: function products() {
+      return this.$store.getters['product/getProductList'];
     }
   },
   methods: {
     fetchBillToday: function fetchBillToday() {
       this.$store.dispatch("bill/fetchBillToday").then(function (response) {})["catch"](function (error) {});
+    },
+    fetchProductList: function fetchProductList() {
+      this.$store.dispatch("product/fetchProductList").then(function (response) {})["catch"](function (error) {});
+    },
+    setSelected: function setSelected(value) {
+      this.addOrder(value.id);
+    },
+    addOrder: function addOrder(product_id) {
+      var _this = this;
+
+      var payload = {
+        order: {
+          product_id: product_id,
+          status_id: 3,
+          bill_id: this.bill.id,
+          amount: 1,
+          note: null
+        }
+      };
+      this.$store.dispatch("bill/fetchOrderStore", payload).then(function (response) {
+        _this.addNew = '';
+      })["catch"](function (error) {});
     }
   },
   created: function created() {
     this.fetchBillToday();
+    this.fetchProductList();
   }
 });
 
@@ -7145,7 +7177,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../../node_modules/c
 
 
 // module
-exports.push([module.i, ".main-section > *[data-v-376a1084] {\n  background-color: white;\n}\n.main-section .bill-list[data-v-376a1084] {\n  height: 0;\n  overflow: auto;\n}\n.main-section .bill-list .table th[data-v-376a1084],\n.main-section .bill-list .table td[data-v-376a1084] {\n  vertical-align: baseline;\n}\n.main-section .img-food[data-v-376a1084] {\n  width: 50px;\n}", ""]);
+exports.push([module.i, ".main-section > *[data-v-376a1084] {\n  background-color: white;\n}\n.main-section .bill-list[data-v-376a1084] {\n  height: 0;\n  overflow: auto;\n}\n.main-section .bill-list .table th[data-v-376a1084],\n.main-section .bill-list .table td[data-v-376a1084] {\n  vertical-align: baseline;\n}\n.main-section .bill-list thead tr th[data-v-376a1084] {\n  z-index: 100 !important;\n}\n.main-section .img-food[data-v-376a1084] {\n  width: 50px;\n}", ""]);
 
 // exports
 
@@ -39690,7 +39722,7 @@ var render = function() {
                 staticClass: "btn btn-primary",
                 on: {
                   click: function($event) {
-                    return _vm.editProduct(_vm.order.id)
+                    return _vm.editOrder(_vm.order.id)
                   }
                 }
               },
@@ -39703,7 +39735,7 @@ var render = function() {
                 staticClass: "btn btn-primary",
                 on: {
                   click: function($event) {
-                    return _vm.deleteProduct(_vm.order.id)
+                    return _vm.deleteOrder(_vm.order.id)
                   }
                 }
               },
@@ -39741,7 +39773,19 @@ var render = function() {
     { staticClass: "flex-grow-1 main-section d-flex flex-column" },
     [
       _c("v-select", {
-        attrs: { options: _vm.options, placeholder: "Please choose your food" }
+        attrs: {
+          options: _vm.products,
+          label: "name",
+          placeholder: "Please choose your food"
+        },
+        on: { input: _vm.setSelected },
+        model: {
+          value: _vm.addNew,
+          callback: function($$v) {
+            _vm.addNew = $$v
+          },
+          expression: "addNew"
+        }
       }),
       _vm._v(" "),
       _c(
@@ -57910,6 +57954,8 @@ var getters = {
 
 var mutations = (_mutations = {}, _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["BILL_TODAY"], function (state, bill) {
   state.bill = bill;
+}), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["ORDER_ADD"], function (state, order) {
+  state.bill.orders.unshift(order);
 }), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["ORDER_EDIT"], function (state, order) {
   state.bill.orders.splice(state.bill.orders.map(function (order) {
     return order.id;
@@ -57935,8 +57981,21 @@ var actions = {
       });
     });
   },
-  fetchOrderUpdate: function fetchOrderUpdate(_ref2, payload) {
+  fetchOrderStore: function fetchOrderStore(_ref2, payload) {
     var commit = _ref2.commit;
+    return new Promise(function (resolve, reject) {
+      axios.post('/api/orders', payload.order).then(function (response) {
+        // console.log(response);
+        commit(_mutation_types__WEBPACK_IMPORTED_MODULE_0__["ORDER_ADD"], response.data.data);
+        resolve(response);
+      })["catch"](function (error) {
+        // console.log(error);
+        reject(error);
+      });
+    });
+  },
+  fetchOrderUpdate: function fetchOrderUpdate(_ref3, payload) {
+    var commit = _ref3.commit;
     return new Promise(function (resolve, reject) {
       axios.put('/api/orders/' + payload.id, payload.order).then(function (response) {
         // console.log(response);
@@ -57948,8 +58007,8 @@ var actions = {
       });
     });
   },
-  fetchOrderDestroy: function fetchOrderDestroy(_ref3, payload) {
-    var commit = _ref3.commit;
+  fetchOrderDestroy: function fetchOrderDestroy(_ref4, payload) {
+    var commit = _ref4.commit;
     return new Promise(function (resolve, reject) {
       axios["delete"]('/api/orders/' + payload.id).then(function (response) {
         // console.log(response);
