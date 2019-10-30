@@ -7,6 +7,7 @@ const state = {
         orders: [],
         date: ''
     },
+    disabled: false
 }
 // Getters
 const getters = {
@@ -16,6 +17,9 @@ const getters = {
     getOrdersToday: state => {
         return state.bill.orders;
     },
+    getBillDisabled: state => {
+        return state.disabled;
+    }
 }
 // Mutations
 const mutations = {
@@ -30,7 +34,10 @@ const mutations = {
     },
     [types.ORDER_DELETE]: (state, id) => {
         state.bill.orders.splice(state.bill.orders.map(order => order.id).indexOf(id), 1);
-	},
+    },
+    [types.BILL_DISABLED]: (state, bill) => {
+        state.disabled = true;
+    },
 }
 // Actions
 const actions = {
@@ -90,7 +97,10 @@ const actions = {
 	            reject(error);
 	        });
 		});
-	},
+    },
+    setDisabledBill: ({ commit }) => {
+        commit(types.BILL_DISABLED);
+    }
 }
 
 export default {

@@ -7,3 +7,4 @@ export const BILL_TODAY = 'BILL_TODAY';
 export const ORDER_ADD = 'ORDER_ADD';
 export const ORDER_EDIT = 'ORDER_EDIT';
 export const ORDER_DELETE = 'ORDER_DELETE';
+export const BILL_DISABLED = 'BILL_DISABLED';

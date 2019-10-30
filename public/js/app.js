@@ -2197,6 +2197,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
@@ -2204,18 +2211,21 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      addNew: ''
+      addNew: ""
     };
   },
   computed: {
     bill: function bill() {
       return this.$store.getters["bill/getBillToday"];
     },
+    billDisabled: function billDisabled() {
+      return this.$store.getters["bill/getBillDisabled"];
+    },
     orders: function orders() {
       return this.$store.getters["bill/getOrdersToday"];
     },
     products: function products() {
-      return this.$store.getters['product/getProductList'];
+      return this.$store.getters["product/getProductList"];
     }
   },
   methods: {
@@ -2241,7 +2251,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
       this.$store.dispatch("bill/fetchOrderStore", payload).then(function (response) {
-        _this.addNew = '';
+        _this.addNew = "";
       })["catch"](function (error) {});
     }
   },
@@ -2580,15 +2590,13 @@ __webpack_require__.r(__webpack_exports__);
     FlipCountdown: vue2_flip_countdown__WEBPACK_IMPORTED_MODULE_0___default.a
   },
   data: function data() {
-    return {
-      deadline: "2019-10-28 16:33:00"
-    };
+    return {};
   },
   computed: {
     getTimeDeadline: function getTimeDeadline() {
       return {
-        hours: 16,
-        min: 30,
+        hours: 0,
+        min: 59,
         sec: 0,
         ms: 0
       };
@@ -2614,12 +2622,22 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   mounted: function mounted() {
+    var _this = this;
+
     // Hide countdown days
     var timeCountdowns = document.getElementsByClassName("flip-clock__piece");
 
     if (timeCountdowns.length === 4) {
       timeCountdowns[0].style.display = "none";
     }
+
+    setInterval(function () {
+      var date = new Date();
+
+      if (date.getHours() === _this.getTimeDeadline.hours && date.getMinutes() === _this.getTimeDeadline.min) {
+        _this.$store.dispatch("bill/setDisabledBill");
+      }
+    }, 60000);
   }
 });
 
@@ -39776,7 +39794,8 @@ var render = function() {
         attrs: {
           options: _vm.products,
           label: "name",
-          placeholder: "Please choose your food"
+          placeholder: "Please choose your food",
+          disabled: _vm.billDisabled
         },
         on: { input: _vm.setSelected },
         model: {
@@ -57940,7 +57959,8 @@ var state = {
     id: 0,
     orders: [],
     date: ''
-  }
+  },
+  disabled: false
 }; // Getters
 
 var getters = {
@@ -57949,6 +57969,9 @@ var getters = {
   },
   getOrdersToday: function getOrdersToday(state) {
     return state.bill.orders;
+  },
+  getBillDisabled: function getBillDisabled(state) {
+    return state.disabled;
   }
 }; // Mutations
 
@@ -57964,6 +57987,8 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, _mutation_types__W
   state.bill.orders.splice(state.bill.orders.map(function (order) {
     return order.id;
   }).indexOf(id), 1);
+}), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["BILL_DISABLED"], function (state, bill) {
+  state.disabled = true;
 }), _mutations); // Actions
 
 var actions = {
@@ -58019,6 +58044,10 @@ var actions = {
         reject(error);
       });
     });
+  },
+  setDisabledBill: function setDisabledBill(_ref5) {
+    var commit = _ref5.commit;
+    commit(_mutation_types__WEBPACK_IMPORTED_MODULE_0__["BILL_DISABLED"]);
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -58221,7 +58250,7 @@ var actions = {
 /*!***********************************************!*\
   !*** ./resources/js/stores/mutation-types.js ***!
   \***********************************************/
-/*! exports provided: CURRENT_USER, PRODUCT_LIST, PRODUCT_STORE, PRODUCT_UPDATE, PRODUCT_DESTROY, BILL_TODAY, ORDER_ADD, ORDER_EDIT, ORDER_DELETE */
+/*! exports provided: CURRENT_USER, PRODUCT_LIST, PRODUCT_STORE, PRODUCT_UPDATE, PRODUCT_DESTROY, BILL_TODAY, ORDER_ADD, ORDER_EDIT, ORDER_DELETE, BILL_DISABLED */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -58235,6 +58264,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ORDER_ADD", function() { return ORDER_ADD; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ORDER_EDIT", function() { return ORDER_EDIT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ORDER_DELETE", function() { return ORDER_DELETE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "BILL_DISABLED", function() { return BILL_DISABLED; });
 var CURRENT_USER = 'CURRENT_USER';
 var PRODUCT_LIST = 'PRODUCT_LIST';
 var PRODUCT_STORE = 'PRODUCT_STORE';
@@ -58244,6 +58274,7 @@ var BILL_TODAY = 'BILL_TODAY';
 var ORDER_ADD = 'ORDER_ADD';
 var ORDER_EDIT = 'ORDER_EDIT';
 var ORDER_DELETE = 'ORDER_DELETE';
+var BILL_DISABLED = 'BILL_DISABLED';
 
 /***/ }),
 

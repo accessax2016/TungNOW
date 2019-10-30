@@ -1,6 +1,13 @@
 <template>
   <div class="flex-grow-1 main-section d-flex flex-column">
-    <v-select v-model="addNew" :options="products" label="name" placeholder="Please choose your food" @input="setSelected"></v-select>
+    <v-select
+      v-model="addNew"
+      :options="products"
+      label="name"
+      placeholder="Please choose your food"
+      @input="setSelected"
+      :disabled="billDisabled"
+    ></v-select>
     <div class="flex-grow-1 table-responsive-xl mt-3 bill-list">
       <table class="table table-striped table-hover">
         <thead>
@@ -36,18 +43,21 @@ export default {
   },
   data() {
     return {
-      addNew: ''
+      addNew: ""
     };
   },
   computed: {
     bill() {
       return this.$store.getters["bill/getBillToday"];
     },
+    billDisabled() {
+      return this.$store.getters["bill/getBillDisabled"];
+    },
     orders() {
       return this.$store.getters["bill/getOrdersToday"];
     },
     products() {
-      return this.$store.getters['product/getProductList'];
+      return this.$store.getters["product/getProductList"];
     }
   },
   methods: {
@@ -64,7 +74,7 @@ export default {
         .catch(error => {});
     },
     setSelected(value) {
-      this.addOrder(value.id)
+      this.addOrder(value.id);
     },
     addOrder(product_id) {
       const payload = {
@@ -80,7 +90,7 @@ export default {
       this.$store
         .dispatch("bill/fetchOrderStore", payload)
         .then(response => {
-          this.addNew = '';
+          this.addNew = "";
         })
         .catch(error => {});
     },

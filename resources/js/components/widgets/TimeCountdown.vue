@@ -19,15 +19,13 @@ export default {
     FlipCountdown
   },
   data() {
-    return {
-      deadline: "2019-10-28 16:33:00"
-    };
+    return {};
   },
   computed: {
     getTimeDeadline() {
       return {
-        hours: 16,
-        min: 30,
+        hours: 0,
+        min: 59,
         sec: 0,
         ms: 0
       };
@@ -62,6 +60,16 @@ export default {
     if (timeCountdowns.length === 4) {
       timeCountdowns[0].style.display = "none";
     }
+
+    setInterval(() => {
+      const date = new Date();
+      if (
+        date.getHours() === this.getTimeDeadline.hours &&
+        date.getMinutes() === this.getTimeDeadline.min
+      ) {
+        this.$store.dispatch("bill/setDisabledBill");
+      }
+    }, 60000);
   }
 };
 </script>
