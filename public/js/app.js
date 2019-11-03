@@ -1900,6 +1900,7 @@ __webpack_require__.r(__webpack_exports__);
         grant_type: 'password',
         client_id: 2,
         client_secret: '9MXTHSNwPATpuRwBrFjyiehNnCzuJ3dkTJlvAdze',
+        // client_secret: 'TgHj8DAJWDplX4ErK1cP0ASonDk6xlOcxboEbX3w',
         username: this.email,
         password: this.password
       };
@@ -2579,6 +2580,8 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue2_flip_countdown__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue2-flip-countdown */ "./node_modules/vue2-flip-countdown/dist/vue2-flip-countdown.js");
 /* harmony import */ var vue2_flip_countdown__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue2_flip_countdown__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
 //
 //
 //
@@ -7334,7 +7337,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".btn-order[data-v-1cefcb29] {\n  background-color: #cd9557;\n  border-color: #cd9557;\n  font-size: 1.5rem;\n  font-weight: bold;\n  color: white;\n}\n.ciu-image[data-v-1cefcb29] {\n  width: 200px;\n}\n.logan[data-v-1cefcb29] {\n  font-size: 1rem;\n}\n@media only screen and (min-width: 576px) {\n.logan[data-v-1cefcb29] {\n    font-size: 2.25rem;\n}\n}", ""]);
+exports.push([module.i, ".btn-order[data-v-1cefcb29] {\n  background-color: #cd9557;\n  border-color: #cd9557;\n  font-size: 1.5rem;\n  font-weight: bold;\n  color: white;\n}\n.ciu-image[data-v-1cefcb29] {\n  width: 200px;\n}\n.logan[data-v-1cefcb29] {\n  font-size: 1rem;\n}\n@media only screen and (min-width: 576px) {\n.logan[data-v-1cefcb29] {\n    font-size: 2.25rem;\n}\n}\na[data-v-1cefcb29]:hover {\n  text-decoration: none;\n}", ""]);
 
 // exports
 
@@ -40411,9 +40414,18 @@ var render = function() {
               _c("h1", [_vm._v("Game Over !!! TungNOW is delivering")])
             ]),
         _vm._v(" "),
-        _c("button", { staticClass: "btn btn-lg btn-order" }, [
-          _vm._v("ORDER NOW")
-        ])
+        _c(
+          "button",
+          { staticClass: "btn btn-lg btn-order" },
+          [
+            _c(
+              "router-link",
+              { staticClass: "text-white", attrs: { to: { name: "bills" } } },
+              [_vm._v("ORDER NOW")]
+            )
+          ],
+          1
+        )
       ])
     ]
   )

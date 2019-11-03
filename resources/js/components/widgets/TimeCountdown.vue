@@ -9,7 +9,9 @@
       <div v-else>
         <h1>Game Over !!! TungNOW is delivering</h1>
       </div>
-      <button class="btn btn-lg btn-order">ORDER NOW</button>
+      <button class="btn btn-lg btn-order">
+        <router-link :to="{ name: 'bills' }" class="text-white">ORDER NOW</router-link>
+      </button>
     </div>
   </div>
 </template>
@@ -46,7 +48,7 @@ export default {
         timeDeadline.ms
       );
       if (cur > deadline) {
-        if ((cur.getHours() - deadline.getHours()) < 1) {
+        if (cur.getHours() - deadline.getHours() < 1) {
           this.isProcessing = true;
         }
         deadline.setDate(deadline.getDate() + 1);
@@ -79,7 +81,7 @@ export default {
         this.$store.dispatch("bill/setDisabledBill", true);
       }
       if (
-        date.getHours() === (this.getTimeDeadline.hours + 1) &&
+        date.getHours() === this.getTimeDeadline.hours + 1 &&
         date.getMinutes() === this.getTimeDeadline.min
       ) {
         this.isProcessing = false;
@@ -108,5 +110,8 @@ export default {
   .logan {
     font-size: 2.25rem;
   }
+}
+a:hover {
+  text-decoration: none;
 }
 </style>
