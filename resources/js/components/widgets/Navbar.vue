@@ -17,7 +17,7 @@
           <strong>REGISTER</strong>
         </router-link>
       </div>
-      <div v-if="currentUser" class="user d-flex align-items-center justify-content-end">
+      <div v-if="currentUser" class="user d-flex align-items-center justify-content-end mb-1 mb-md-0">
         <button v-if="currentUser.admin" class="btn btn-primary mr-3" @click="addNewBill()">NEW BILL</button>
         <div class="dropdown">
           <div

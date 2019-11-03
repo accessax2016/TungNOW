@@ -1,13 +1,14 @@
 <template>
   <div>
-    <video
+    <!-- <video
       class="background-video"
       src="/assets/main.mp4"
       playsinline="playsinline"
       autoplay="autoplay"
       muted="muted"
       loop="loop"
-    ></video>
+    ></video> -->
+    <img class="background-image" src="/assets/background-image.webp" alt="background-image">
     <div class="background-overlay"></div>
   </div>
 </template>
@@ -27,6 +28,12 @@ export default {};
   height: auto;
   transform: translateX(-50%) translateY(-50%);
   z-index: 0;
+}
+
+.background-image {
+  position: fixed;
+  width: 100%;
+  height: 100%;
 }
 
 .background-overlay {

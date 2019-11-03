@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import OrderItemVue from "../auth/orders/OrderItem.vue";
+import OrderItemVue from "../orders/OrderItem.vue";
 export default {
   components: {
     OrderItem: OrderItemVue
