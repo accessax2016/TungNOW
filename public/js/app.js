@@ -2745,10 +2745,6 @@ __webpack_require__.r(__webpack_exports__);
       deadline.setHours(timeDeadline.hours, timeDeadline.min, timeDeadline.sec, timeDeadline.ms);
 
       if (cur > deadline) {
-        if (cur.getHours() - deadline.getHours() < 1) {
-          this.isProcessing = true;
-        }
-
         deadline.setDate(deadline.getDate() + 1);
       }
 
@@ -2775,16 +2771,18 @@ __webpack_require__.r(__webpack_exports__);
     setInterval(function () {
       var date = new Date();
 
-      if (date.getHours() === _this.getTimeDeadline.hours && date.getMinutes() === _this.getTimeDeadline.min) {
-        _this.isProcessing = true;
+      if (date.getHours() >= _this.getTimeDeadline.hours && date.getHours() <= _this.getTimeDeadline.hours && date.getMinutes() === _this.getTimeDeadline.min) {
+        if (!_this.isProcessing) {
+          _this.isProcessing = true;
 
-        _this.$store.dispatch("bill/setDisabledBill", true);
-      }
+          _this.$store.dispatch("bill/setDisabledBill", true);
+        }
+      } else {
+        if (_this.isProcessing) {
+          _this.isProcessing = false;
 
-      if (date.getHours() === _this.getTimeDeadline.hours + 1 && date.getMinutes() === _this.getTimeDeadline.min) {
-        _this.isProcessing = false;
-
-        _this.$store.dispatch("bill/setDisabledBill", false);
+          _this.$store.dispatch("bill/setDisabledBill", false);
+        }
       }
     }, 1000);
   }
@@ -40368,7 +40366,7 @@ var render = function() {
             _c(
               "button",
               {
-                staticClass: "btn btn-primary",
+                staticClass: "btn btn-danger",
                 on: {
                   click: function($event) {
                     return _vm.deleteProduct(_vm.product.id)

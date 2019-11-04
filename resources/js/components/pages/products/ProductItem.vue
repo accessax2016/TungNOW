@@ -16,7 +16,7 @@
       <div v-if="currentUser && currentUser.admin">
         <button class="btn btn-primary" @click="editProduct(product.id)">Edit</button>
         |
-        <button class="btn btn-primary" @click="deleteProduct(product.id)">Delete</button>
+        <button class="btn btn-danger" @click="deleteProduct(product.id)">Delete</button>
       </div>
     </td>
   </tr>

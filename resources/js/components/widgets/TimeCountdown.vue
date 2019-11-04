@@ -48,9 +48,6 @@ export default {
         timeDeadline.ms
       );
       if (cur > deadline) {
-        if (cur.getHours() - deadline.getHours() < 1) {
-          this.isProcessing = true;
-        }
         deadline.setDate(deadline.getDate() + 1);
       }
       return this.generateDeadlineString(deadline);
@@ -74,18 +71,19 @@ export default {
     setInterval(() => {
       const date = new Date();
       if (
-        date.getHours() === this.getTimeDeadline.hours &&
+        date.getHours() >= this.getTimeDeadline.hours &&
+        date.getHours() <= this.getTimeDeadline.hours &&
         date.getMinutes() === this.getTimeDeadline.min
       ) {
-        this.isProcessing = true;
-        this.$store.dispatch("bill/setDisabledBill", true);
-      }
-      if (
-        date.getHours() === this.getTimeDeadline.hours + 1 &&
-        date.getMinutes() === this.getTimeDeadline.min
-      ) {
-        this.isProcessing = false;
-        this.$store.dispatch("bill/setDisabledBill", false);
+        if (!this.isProcessing) {
+          this.isProcessing = true;
+          this.$store.dispatch("bill/setDisabledBill", true);
+        }
+      } else {
+        if (this.isProcessing) {
+          this.isProcessing = false;
+          this.$store.dispatch("bill/setDisabledBill", false);
+        }
       }
     }, 1000);
   }
