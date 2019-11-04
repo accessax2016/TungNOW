@@ -1,13 +1,13 @@
 <template>
   <div class="w-100 d-flex flex-column align-items-center">
     <img class="ciu-image d-none d-xl-block" src="/assets/images/ciu.png" alt="ciu" />
-    <h1 class="logan text-center">Superman TungNOW is coming !!!</h1>
+    <h1 v-if="!isProcessing" class="logan text-center">Superman TungNOW is coming !!!</h1>
     <div class="d-flex flex-column">
       <div v-if="!isProcessing" class="time-countdown">
         <flip-countdown :deadline="getDeadline"></flip-countdown>
       </div>
       <div v-else>
-        <h1>Game Over !!! TungNOW is delivering</h1>
+        <h1 class="logan">Game Over !!! TungNOW is delivering</h1>
       </div>
       <button class="btn btn-lg btn-order">
         <router-link :to="{ name: 'bills' }" class="text-white">ORDER NOW</router-link>
@@ -101,7 +101,7 @@ export default {
   color: white;
 }
 .ciu-image {
-  width: 200px;
+  width: 150px;
 }
 .logan {
   font-size: 1rem;

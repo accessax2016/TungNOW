@@ -26,7 +26,7 @@ export default {
 <style lang="scss" scoped>
 .menu {
   position: relative;
-  height: 35%;
+  min-height: 250px;
   color: white;
 }
 

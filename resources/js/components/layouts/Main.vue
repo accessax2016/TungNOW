@@ -25,7 +25,7 @@ export default {
 
 <style lang="scss" scoped>
 .main {
-  height: 65%;
+  height: calc(100% - 250px);
   position: relative;
   .main-content {
     position: absolute;

@@ -1,6 +1,6 @@
 <template>
   <div class="navbar-container d-flex mb-3 flex-column flex-md-row align-items-center">
-    <div class="order-2 order-md-1 d-flex">
+    <div v-if="currentUser" class="order-2 order-md-1 d-flex">
       <router-link :to="{ name: 'bills' }" class="nav-link">
         <strong>HOME</strong>
       </router-link>

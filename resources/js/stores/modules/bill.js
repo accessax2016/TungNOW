@@ -30,7 +30,7 @@ const mutations = {
 		state.bill.orders.unshift(order);
     },
     [types.ORDER_EDIT]: (state, order) => {
-        state.bill.orders.splice(state.bill.orders.map(order => order.id).indexOf(id), order);
+        state.bill.orders.splice(state.bill.orders.map(x => x.id).indexOf(order.id), 1, order);
     },
     [types.ORDER_DELETE]: (state, id) => {
         state.bill.orders.splice(state.bill.orders.map(order => order.id).indexOf(id), 1);

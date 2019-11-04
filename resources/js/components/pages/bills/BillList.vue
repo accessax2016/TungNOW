@@ -12,13 +12,13 @@
       <table class="table table-striped table-hover">
         <thead>
           <tr>
-            <th class="sticky-top bg-white border-top-none">#</th>
-            <th class="sticky-top bg-white border-top-none">Food</th>
-            <th class="sticky-top bg-white border-top-none">Amount</th>
-            <th class="sticky-top bg-white border-top-none">Price (VNĐ)</th>
-            <th class="sticky-top bg-white border-top-none">Customer</th>
-            <th class="sticky-top bg-white border-top-none">Note</th>
-            <th class="sticky-top bg-white border-top-none">Actions</th>
+            <th nowrap class="sticky-top bg-white border-top-none">#</th>
+            <th nowrap class="sticky-top bg-white border-top-none">Food</th>
+            <th nowrap class="sticky-top bg-white border-top-none">Amount</th>
+            <th nowrap class="sticky-top bg-white border-top-none">Price (VNĐ)</th>
+            <th nowrap class="sticky-top bg-white border-top-none">Customer</th>
+            <th nowrap class="sticky-top bg-white border-top-none">Note</th>
+            <th nowrap class="sticky-top bg-white border-top-none">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -36,43 +36,31 @@
 </template>
 
 <script>
-import OrderItemVue from "../orders/OrderItem.vue";
+import OrderItemVue from '../orders/OrderItem.vue';
 export default {
   components: {
     OrderItem: OrderItemVue
   },
   data() {
     return {
-      addNew: ""
+      addNew: ''
     };
   },
   computed: {
     bill() {
-      return this.$store.getters["bill/getBillToday"];
+      return this.$store.getters['bill/getBillToday'];
     },
     billDisabled() {
-      return this.$store.getters["bill/getBillDisabled"];
+      return this.$store.getters['bill/getBillDisabled'];
     },
     orders() {
-      return this.$store.getters["bill/getOrdersToday"];
+      return this.$store.getters['bill/getOrdersToday'];
     },
     products() {
-      return this.$store.getters["product/getProductList"];
+      return this.$store.getters['product/getProductList'];
     }
   },
   methods: {
-    fetchBillToday() {
-      this.$store
-        .dispatch("bill/fetchBillToday")
-        .then(response => {})
-        .catch(error => {});
-    },
-    fetchProductList() {
-      this.$store
-        .dispatch("product/fetchProductList")
-        .then(response => {})
-        .catch(error => {});
-    },
     setSelected(value) {
       this.addOrder(value.id);
     },
@@ -88,16 +76,12 @@ export default {
       };
 
       this.$store
-        .dispatch("bill/fetchOrderStore", payload)
+        .dispatch('bill/fetchOrderStore', payload)
         .then(response => {
           this.addNew = "";
         })
         .catch(error => {});
     },
-  },
-  created() {
-    this.fetchBillToday();
-    this.fetchProductList();
   }
 };
 </script>

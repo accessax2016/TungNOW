@@ -1,9 +1,9 @@
 <template>
   <div class="flex-grow-1 main-section d-flex flex-column">
-    <div class="d-flex mb-3 bg-transparent">
+    <form class="d-flex mb-3 bg-transparent" @submit.prevent="addNewProduct()">
       <input type="text" class="form-control" placeholder="Add new food here" v-model="new_product" />
-      <button class="btn btn-primary ml-3" @click="addNewProduct()">ADD</button>
-    </div>
+      <button type="submit" class="btn btn-primary ml-3">ADD</button>
+    </form>
     <div class="flex-grow-1 table-responsive-xl product-list">
       <table class="table table-striped table-hover">
         <thead>
@@ -16,7 +16,12 @@
           </tr>
         </thead>
         <tbody>
-          <ProductItem v-for="(product, index) in products" :key="product.id" :product="product" :index="index"></ProductItem>
+          <ProductItem
+            v-for="(product, index) in products"
+            :key="product.id"
+            :product="product"
+            :index="index"
+          ></ProductItem>
         </tbody>
       </table>
     </div>
@@ -24,25 +29,25 @@
 </template>
 
 <script>
-import ProductItemVue from './ProductItem.vue';
+import ProductItemVue from "./ProductItem.vue";
 export default {
   components: {
     ProductItem: ProductItemVue
   },
   data() {
     return {
-      new_product: ''
+      new_product: ""
     };
   },
   computed: {
     products() {
-      return this.$store.getters['product/getProductList'];
+      return this.$store.getters["product/getProductList"];
     }
   },
   methods: {
     fetchProductList() {
       this.$store
-        .dispatch('product/fetchProductList')
+        .dispatch("product/fetchProductList")
         .then(response => {})
         .catch(error => {});
     },
@@ -57,12 +62,12 @@ export default {
         }
       };
       this.$store
-        .dispatch('product/fetchProductStore', payload)
+        .dispatch("product/fetchProductStore", payload)
         .then(response => {
-          this.new_product = '';
+          this.new_product = "";
         })
         .catch(error => {});
-    },
+    }
   },
   created() {
     this.fetchProductList();

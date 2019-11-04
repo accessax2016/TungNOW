@@ -1,7 +1,7 @@
 <template>
   <tr>
-    <th>{{index + 1}}</th>
-    <td>
+    <td nowrap>{{index + 1}}</td>
+    <td nowrap>
       <img class="img-food mr-1" :src="sourceImage(order.product.image)" alt="product" />
       {{order.product.name}}
     </td>
@@ -11,19 +11,19 @@
       </div>
       <div v-else>{{order.amount}}</div>
     </td>
-    <td>{{order.product.price}}</td>
-    <td>{{order.user.name}}</td>
-    <td>
+    <td nowrap>{{order.product.price}}</td>
+    <td nowrap>{{order.user.name}}</td>
+    <td nowrap>
       <div v-if="currentUser && currentUser.name === order.user.name">
         <input type="text" class="form-control" v-model="note" />
       </div>
       <div v-else>{{order.note}}</div>
     </td>
-    <td>
+    <td nowrap>
       <div v-if="currentUser && currentUser.name === order.user.name">
         <button class="btn btn-primary" @click="editOrder(order.id)">Edit</button>
         |
-        <button class="btn btn-primary" @click="deleteOrder(order.id)">Delete</button>
+        <button class="btn btn-danger" @click="deleteOrder(order.id)">Delete</button>
       </div>
     </td>
   </tr>

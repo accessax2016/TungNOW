@@ -4,6 +4,8 @@ import VueRouter from 'vue-router';
 
 import App from '../App.vue';
 import BillListVue from '../components/pages/bills/BillList.vue';
+import BillPreviewVue from '../components/pages/bills/BillPreview.vue';
+import BillContainerVue from '../components/pages/bills/BillContainer.vue';
 import ProductListVue from '../components/pages/products/ProductList.vue';
 import LoginVue from '../components/pages/auth/Login.vue';
 import RegisterVue from '../components/pages/auth/Register.vue';
@@ -40,7 +42,7 @@ const routers = new VueRouter({
                 },
                 {
                     path: 'bills',
-                    component: BillListVue,
+                    component: BillContainerVue,
                     name: 'bills'
                 },
                 {
