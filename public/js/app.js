@@ -40307,9 +40307,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("tr", [
-    _c("th", [_vm._v(_vm._s(_vm.index + 1))]),
+    _c("td", { attrs: { nowrap: "" } }, [_vm._v(_vm._s(_vm.index + 1))]),
     _vm._v(" "),
-    _c("td", [
+    _c("td", { attrs: { nowrap: "" } }, [
       _c("img", {
         staticClass: "img-food mr-1",
         attrs: { src: _vm.sourceImage(_vm.product.image), alt: "product" }
@@ -40317,7 +40317,7 @@ var render = function() {
       _vm._v("\n    " + _vm._s(_vm.product.name) + "\n  ")
     ]),
     _vm._v(" "),
-    _c("td", [
+    _c("td", { attrs: { nowrap: "" } }, [
       _vm.currentUser && _vm.currentUser.admin
         ? _c("div", [
             _c("input", {
@@ -40345,9 +40345,11 @@ var render = function() {
         : _c("div", [_vm._v(_vm._s(_vm.product.price))])
     ]),
     _vm._v(" "),
-    _c("td", [_vm._v(_vm._s(_vm.product.description))]),
+    _c("td", { attrs: { nowrap: "" } }, [
+      _vm._v(_vm._s(_vm.product.description))
+    ]),
     _vm._v(" "),
-    _c("td", [
+    _c("td", { attrs: { nowrap: "" } }, [
       _vm.currentUser && _vm.currentUser.admin
         ? _c("div", [
             _c(
@@ -40478,25 +40480,50 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th", { staticClass: "sticky-top bg-white border-top-none" }, [
-          _vm._v("#")
-        ]),
+        _c(
+          "th",
+          {
+            staticClass: "sticky-top bg-white border-top-none",
+            attrs: { nowrap: "" }
+          },
+          [_vm._v("#")]
+        ),
         _vm._v(" "),
-        _c("th", { staticClass: "sticky-top bg-white border-top-none" }, [
-          _vm._v("Food")
-        ]),
+        _c(
+          "th",
+          {
+            staticClass: "sticky-top bg-white border-top-none",
+            attrs: { nowrap: "" }
+          },
+          [_vm._v("Food")]
+        ),
         _vm._v(" "),
-        _c("th", { staticClass: "sticky-top bg-white border-top-none" }, [
-          _vm._v("Price (VNĐ)")
-        ]),
+        _c(
+          "th",
+          {
+            staticClass: "sticky-top bg-white border-top-none",
+            attrs: { nowrap: "" }
+          },
+          [_vm._v("Price (VNĐ)")]
+        ),
         _vm._v(" "),
-        _c("th", { staticClass: "sticky-top bg-white border-top-none" }, [
-          _vm._v("Description")
-        ]),
+        _c(
+          "th",
+          {
+            staticClass: "sticky-top bg-white border-top-none",
+            attrs: { nowrap: "" }
+          },
+          [_vm._v("Description")]
+        ),
         _vm._v(" "),
-        _c("th", { staticClass: "sticky-top bg-white border-top-none" }, [
-          _vm._v("Actions")
-        ])
+        _c(
+          "th",
+          {
+            staticClass: "sticky-top bg-white border-top-none",
+            attrs: { nowrap: "" }
+          },
+          [_vm._v("Actions")]
+        )
       ])
     ])
   }

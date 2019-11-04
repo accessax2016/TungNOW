@@ -1,18 +1,18 @@
 <template>
   <tr>
-    <th>{{index + 1}}</th>
-    <td>
+    <td nowrap>{{index + 1}}</td>
+    <td nowrap>
       <img class="img-food mr-1" :src="sourceImage(product.image)" alt="product" />
       {{product.name}}
     </td>
-    <td>
+    <td nowrap>
       <div v-if="currentUser && currentUser.admin">
         <input type="number" class="form-control" v-model="price" />
       </div>
       <div v-else>{{product.price}}</div>
     </td>
-    <td>{{product.description}}</td>
-    <td>
+    <td nowrap>{{product.description}}</td>
+    <td nowrap>
       <div v-if="currentUser && currentUser.admin">
         <button class="btn btn-primary" @click="editProduct(product.id)">Edit</button>
         |
