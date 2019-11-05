@@ -60,17 +60,34 @@ export default {
 
       this.$store
         .dispatch("product/fetchProductUpdate", payload)
-        .then(response => {})
-        .catch(error => {});
+        .then(response => {
+          this.$modal.showSuccessModal({
+            content: "Edit successfully !!!"
+          });
+        })
+        .catch(error => {
+          this.$modal.showErrorModal({
+            content: error.message
+          });
+        });
     },
     deleteProduct(id) {
-      const payload = {
-        id: id
-      };
-      this.$store
-        .dispatch("product/fetchProductDestroy", payload)
-        .then(response => {})
-        .catch(error => {});
+      this.$modal.showConfirmModal({
+        content: "Are you sure delete this product ?",
+        onConfirm: result => {
+          const payload = {
+            id: id
+          };
+          this.$store
+            .dispatch("product/fetchProductDestroy", payload)
+            .then(response => {})
+            .catch(error => {
+              this.$modal.showErrorModal({
+                content: error.message
+              });
+            });
+        }
+      });
     }
   }
 };

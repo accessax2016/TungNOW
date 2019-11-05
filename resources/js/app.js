@@ -10,11 +10,13 @@ require('./bootstrap');
 import Vue from 'vue';
 import routers from './routers/routers';
 import vSelect from 'vue-select';
-import Auth from './packages/auth/index';
+import Auth from './packages/auth';
 import stores from './stores/index';
+import Modal from './packages/modal';
 
 Vue.component('v-select', vSelect);
 Vue.use(Auth);
+Vue.use(Modal)
 
 routers.beforeEach((to, from, next) => {
 	if (to.matched.some(record => record.meta.guest)) {

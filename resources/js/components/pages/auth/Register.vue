@@ -92,10 +92,10 @@
 export default {
   data() {
     return {
-      name: '',
-      email: '',
-      password: '',
-      confirm_password: ''
+      name: "",
+      email: "",
+      password: "",
+      confirm_password: ""
     };
   },
   methods: {
@@ -108,20 +108,24 @@ export default {
           confirm_password: this.confirm_password
         }
       };
-      
+
       this.$store
-        .dispatch('user/register', payload)
+        .dispatch("user/register", payload)
         .then(response => {
-          if (response.data.hasOwnProperty('errors')) {
-            this.name = '';
-            this.email = '';
-            this.password = '';
-            this.confirm_password = '';
-          } else {
-            this.$router.push({ name: 'login' });
-          }
+          this.$modal.showSuccessModal({
+            content: "Register successfully !!! Rediect to login.",
+            onConfirm: result => {
+              if (result) {
+                this.$router.push({ name: "login" });
+              }
+            }
+          });
         })
-        .catch(error => {});
+        .catch(error => {
+          this.$modal.showErrorModal({
+            content: error.message
+          });
+        });
     }
   }
 };

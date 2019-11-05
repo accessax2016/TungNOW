@@ -36,28 +36,28 @@
 </template>
 
 <script>
-import OrderItemVue from '../orders/OrderItem.vue';
+import OrderItemVue from "../orders/OrderItem.vue";
 export default {
   components: {
     OrderItem: OrderItemVue
   },
   data() {
     return {
-      addNew: ''
+      addNew: ""
     };
   },
   computed: {
     bill() {
-      return this.$store.getters['bill/getBillToday'];
+      return this.$store.getters["bill/getBillToday"];
     },
     billDisabled() {
-      return this.$store.getters['bill/getBillDisabled'];
+      return this.$store.getters["bill/getBillDisabled"];
     },
     orders() {
-      return this.$store.getters['bill/getOrdersToday'];
+      return this.$store.getters["bill/getOrdersToday"];
     },
     products() {
-      return this.$store.getters['product/getProductList'];
+      return this.$store.getters["product/getProductList"];
     }
   },
   methods: {
@@ -76,12 +76,19 @@ export default {
       };
 
       this.$store
-        .dispatch('bill/fetchOrderStore', payload)
+        .dispatch("bill/fetchOrderStore", payload)
         .then(response => {
           this.addNew = "";
+          this.$modal.showSuccessModal({
+            content: "Order successfully !!!"
+          });
         })
-        .catch(error => {});
-    },
+        .catch(error => {
+          this.$modal.showErrorModal({
+            content: error.message
+          });
+        });
+    }
   }
 };
 </script>

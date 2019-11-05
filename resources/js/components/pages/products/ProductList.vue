@@ -49,7 +49,11 @@ export default {
       this.$store
         .dispatch("product/fetchProductList")
         .then(response => {})
-        .catch(error => {});
+        .catch(error => {
+          this.$modal.showErrorModal({
+            content: error.message
+          });
+        });
     },
     addNewProduct() {
       if (!this.new_product) {
@@ -65,8 +69,15 @@ export default {
         .dispatch("product/fetchProductStore", payload)
         .then(response => {
           this.new_product = "";
+          this.$modal.showSuccessModal({
+            content: "Add new food successfully !!!"
+          });
         })
-        .catch(error => {});
+        .catch(error => {
+          this.$modal.showErrorModal({
+            content: error.message
+          });
+        });
     }
   },
   created() {

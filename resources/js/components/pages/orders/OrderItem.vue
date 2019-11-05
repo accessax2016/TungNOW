@@ -74,17 +74,36 @@ export default {
 
       this.$store
         .dispatch("bill/fetchOrderUpdate", payload)
-        .then(response => {})
-        .catch(error => {});
+        .then(response => {
+          this.$modal.showSuccessModal({
+            content: "Edit successfully !!!"
+          });
+        })
+        .catch(error => {
+          this.$modal.showErrorModal({
+            content: error.message
+          });
+        });
     },
     deleteOrder(id) {
-      const payload = {
-        id: id
-      };
-      this.$store
-        .dispatch("bill/fetchOrderDestroy", payload)
-        .then(response => {})
-        .catch(error => {});
+      this.$modal.showConfirmModal({
+        content: "Are you sure delete this order ?",
+        onConfirm: result => {
+          if (result) {
+            const payload = {
+              id: id
+            };
+            this.$store
+              .dispatch("bill/fetchOrderDestroy", payload)
+              .then(response => {})
+              .catch(error => {
+                this.$modal.showErrorModal({
+                  content: error.message
+                });
+              });
+          }
+        }
+      });
     }
   }
 };

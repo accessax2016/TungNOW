@@ -7,17 +7,16 @@
         <flip-countdown :deadline="getDeadline"></flip-countdown>
       </div>
       <div v-else>
-        <h1 class="logan">Game Over !!! TungNOW is delivering</h1>
+        <h1 class="logan text-center">Game Over !!! TungNOW is delivering</h1>
       </div>
-      <button class="btn btn-lg btn-order">
-        <router-link :to="{ name: 'bills' }" class="text-white">ORDER NOW</router-link>
-      </button>
+      <button class="btn btn-lg btn-order" @click="openOrderModal()">ORDER NOW</button>
     </div>
   </div>
 </template>
 
 <script>
 import FlipCountdown from "vue2-flip-countdown";
+import OrderAddVue from '../pages/orders/OrderAdd.vue';
 
 export default {
   components: {
@@ -59,6 +58,15 @@ export default {
       const string = `${deadline.getFullYear()}-${deadline.getMonth() +
         1}-${deadline.getDate()} ${deadline.getHours()}:${deadline.getMinutes()}:${deadline.getSeconds()}`;
       return string;
+    },
+    openOrderModal() {
+      const params = {
+        content: 'Đang làm',
+        onConfirm: res => {
+          return;
+        }
+      };
+      this.$modal.showSuccessModal(params);
     }
   },
   mounted() {
@@ -70,11 +78,22 @@ export default {
 
     setInterval(() => {
       const date = new Date();
-      if (
-        date.getHours() >= this.getTimeDeadline.hours &&
-        date.getHours() <= this.getTimeDeadline.hours &&
-        date.getMinutes() === this.getTimeDeadline.min
-      ) {
+      const startProcessTime = new Date();
+      startProcessTime.setHours(
+        this.getTimeDeadline.hours,
+        this.getTimeDeadline.min,
+        0,
+        0
+      );
+      const endProcessTime = new Date();
+      endProcessTime.setHours(
+        this.getTimeDeadline.hours + 1,
+        this.getTimeDeadline.min,
+        0,
+        0
+      );
+
+      if (date >= startProcessTime && date <= endProcessTime) {
         if (!this.isProcessing) {
           this.isProcessing = true;
           this.$store.dispatch("bill/setDisabledBill", true);

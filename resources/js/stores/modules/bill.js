@@ -55,7 +55,7 @@ const actions = {
                 })
                 .catch(error => {
                     // console.log(error);
-                    reject(error);
+                    reject(error.response.data);
                 });
         });
     },
@@ -69,7 +69,7 @@ const actions = {
 	        })
 			.catch(error => {
 	            // console.log(error);
-	            reject(error);
+	            reject(error.response.data);
 	        });
 		});
     },
@@ -83,7 +83,7 @@ const actions = {
 	        })
 			.catch(error => {
 	            // console.log(error);
-	            reject(error);
+	            reject(error.response.data);
 	        });
 		});
     },
@@ -97,7 +97,7 @@ const actions = {
 	        })
 			.catch(error => {
 	            // console.log(error);
-	            reject(error);
+	            reject(error.response.data);
 	        });
 		});
     },
@@ -111,7 +111,7 @@ const actions = {
 	        })
 			.catch(error => {
 	            // console.log(error);
-	            reject(error);
+	            reject(error.response.data);
 	        });
 		});
     },

@@ -27,13 +27,21 @@ export default {
       this.$store
         .dispatch("bill/fetchBillToday")
         .then(response => {})
-        .catch(error => {});
+        .catch(error => {
+          this.$modal.showErrorModal({
+            content: error.message
+          });
+        });
     },
     fetchProductList() {
       this.$store
         .dispatch("product/fetchProductList")
         .then(response => {})
-        .catch(error => {});
+        .catch(error => {
+          this.$modal.showErrorModal({
+            content: error.message
+          });
+        });
     },
     changeToBillPreview() {
       this.currentView = BillPreviewVue;

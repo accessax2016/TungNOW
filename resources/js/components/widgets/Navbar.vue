@@ -8,7 +8,9 @@
         <strong>FOOD</strong>
       </router-link>
     </div>
-    <div class="order-1 order-md-2 user-section flex-grow-1 d-flex align-items-center justify-content-end">
+    <div
+      class="order-1 order-md-2 user-section flex-grow-1 d-flex align-items-center justify-content-end"
+    >
       <div v-if="!currentUser" class="d-flex">
         <router-link :to="{ name: 'login' }" class="nav-link">
           <strong>LOGIN</strong>
@@ -17,7 +19,10 @@
           <strong>REGISTER</strong>
         </router-link>
       </div>
-      <div v-if="currentUser" class="user d-flex align-items-center justify-content-end mb-1 mb-md-0">
+      <div
+        v-if="currentUser"
+        class="user d-flex align-items-center justify-content-end mb-1 mb-md-0"
+      >
         <button v-if="currentUser.admin" class="btn btn-primary mr-3" @click="addNewBill()">NEW BILL</button>
         <div class="dropdown">
           <div
@@ -62,7 +67,11 @@ export default {
       this.$store
         .dispatch("user/fetchCurrentUser")
         .then(response => {})
-        .catch(error => {});
+        .catch(error => {
+          this.$modal.showErrorModal({
+            content: error.message
+          });
+        });
     },
     addNewBill() {
       const payload = {
@@ -70,8 +79,16 @@ export default {
       };
       this.$store
         .dispatch("bill/fetchBillStore", payload)
-        .then(response => {})
-        .catch(error => {});
+        .then(response => {
+          this.$modal.showSuccessModal({
+            content: "Add new bill successfully !!!"
+          });
+        })
+        .catch(error => {
+          this.$modal.showErrorModal({
+            content: error.message
+          });
+        });
     }
   },
   created() {
@@ -93,21 +110,29 @@ export default {
       }
       .img-avatar {
         border-radius: 50%;
-        width: 50px;
+        width: 30px;
       }
       .name {
         color: white;
-        font-size: 1.25rem;
+        font-size: 1rem;
+      }
+      @media only screen and (min-width: 576px) {
+        .img-avatar {
+          width: 50px;
+        }
+        .name {
+          font-size: 1.25rem;
+        }
       }
     }
   }
   .nav-link {
     min-width: 120px;
-    min-height: 60px;
+    min-height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.5rem;
+    font-size: 1rem;
     font-weight: bold;
     color: black;
     &:hover {
@@ -115,6 +140,13 @@ export default {
     }
     &.router-link-active {
       background-color: white;
+    }
+  }
+  @media only screen and (min-width: 576px) {
+    .nav-link {
+      min-width: 120px;
+      min-height: 60px;
+      font-size: 1.5rem;
     }
   }
 }

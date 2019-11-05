@@ -65,35 +65,40 @@ export default {
   methods: {
     login() {
       var oauth = {
-        grant_type: 'password',
+        grant_type: "password",
         client_id: 2,
         client_secret: '9MXTHSNwPATpuRwBrFjyiehNnCzuJ3dkTJlvAdze',
+        // client_secret: "TgHj8DAJWDplX4ErK1cP0ASonDk6xlOcxboEbX3w",
         username: this.email,
         password: this.password
       };
 
       axios
-        .post('/oauth/token', oauth)
+        .post("/oauth/token", oauth)
         .then(response => {
           // console.log(response);
           this.$auth.setToken(
-            response.data.token_type + ' ' + response.data.access_token,
+            response.data.token_type + " " + response.data.access_token,
             +response.data.expires_in * 1000 + Date.now()
           );
           this.fetchCurrentUser();
-          this.$router.push({ name: 'home' });
+          this.$router.push({ name: "home" });
         })
         .catch(error => {
           // console.log(error);
-          this.email = '';
-          this.password = '';
+          this.email = "";
+          this.password = "";
         });
     },
     fetchCurrentUser() {
       this.$store
-        .dispatch('user/fetchCurrentUser')
+        .dispatch("user/fetchCurrentUser")
         .then(response => {})
-        .catch(error => {});
+        .catch(error => {
+          this.$modal.showErrorModal({
+            content: error.message
+          });
+        });
     }
   }
 };

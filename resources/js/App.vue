@@ -2,6 +2,7 @@
   <div class="h-100-vh">
     <Background></Background>
     <Main></Main>
+    <Modal />
   </div>
 </template>
 
