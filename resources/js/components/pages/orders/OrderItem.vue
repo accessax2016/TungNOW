@@ -7,7 +7,10 @@
     </td>
     <td style="max-width: 50px;">
       <div v-if="currentUser && currentUser.name === order.user.name">
-        <input type="number" class="form-control" v-model="amount" />
+        <div v-if="!isEditing">{{amount}}</div>
+        <div v-else>
+          <input type="number" class="form-control" v-model="amount" />
+        </div>
       </div>
       <div v-else>{{order.amount}}</div>
     </td>
@@ -15,15 +18,25 @@
     <td nowrap>{{order.user.name}}</td>
     <td nowrap>
       <div v-if="currentUser && currentUser.name === order.user.name">
-        <input type="text" class="form-control" v-model="note" />
+        <div v-if="!isEditing">{{note}}</div>
+        <div v-else>
+          <input type="text" class="form-control" v-model="note" />
+        </div>
       </div>
       <div v-else>{{order.note}}</div>
     </td>
     <td nowrap>
       <div v-if="currentUser && currentUser.name === order.user.name">
-        <button class="btn btn-primary" @click="editOrder(order.id)">Edit</button>
-        |
-        <button class="btn btn-danger" @click="deleteOrder(order.id)">Delete</button>
+        <div v-if="!isEditing">
+          <button class="btn btn-primary" @click="editOrder()">Edit</button>
+          |
+          <button class="btn btn-danger" @click="deleteOrder(order.id)">Delete</button>
+        </div>
+        <div v-else>
+          <button class="btn btn-primary" @click="saveEditOrder(order.id)">Save</button>
+          |
+          <button class="btn btn-secondary" @click="cancelEditOrder()">Cancel</button>
+        </div>
       </div>
     </td>
   </tr>
@@ -48,7 +61,8 @@ export default {
   data() {
     return {
       amount: this.order.amount,
-      note: this.order.note
+      note: this.order.note,
+      isEditing: false
     };
   },
   computed: {
@@ -60,7 +74,10 @@ export default {
     sourceImage(url) {
       return "/assets/images/" + url;
     },
-    editOrder(id) {
+    editOrder() {
+      this.isEditing = true;
+    },
+    saveEditOrder(id) {
       const payload = {
         id: id,
         order: {
@@ -75,6 +92,7 @@ export default {
       this.$store
         .dispatch("bill/fetchOrderUpdate", payload)
         .then(response => {
+          this.cancelEditOrder();
           this.$modal.showSuccessModal({
             content: "Edit successfully !!!"
           });
@@ -84,6 +102,9 @@ export default {
             content: error.message
           });
         });
+    },
+    cancelEditOrder() {
+      this.isEditing = false;
     },
     deleteOrder(id) {
       this.$modal.showConfirmModal({

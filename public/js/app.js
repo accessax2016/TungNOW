@@ -2377,6 +2377,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     order: {
@@ -2395,7 +2408,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       amount: this.order.amount,
-      note: this.order.note
+      note: this.order.note,
+      isEditing: false
     };
   },
   computed: {
@@ -2407,7 +2421,10 @@ __webpack_require__.r(__webpack_exports__);
     sourceImage: function sourceImage(url) {
       return "/assets/images/" + url;
     },
-    editOrder: function editOrder(id) {
+    editOrder: function editOrder() {
+      this.isEditing = true;
+    },
+    saveEditOrder: function saveEditOrder(id) {
       var _this = this;
 
       var payload = {
@@ -2421,6 +2438,8 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
       this.$store.dispatch("bill/fetchOrderUpdate", payload).then(function (response) {
+        _this.cancelEditOrder();
+
         _this.$modal.showSuccessModal({
           content: "Edit successfully !!!"
         });
@@ -2429,6 +2448,9 @@ __webpack_require__.r(__webpack_exports__);
           content: error.message
         });
       });
+    },
+    cancelEditOrder: function cancelEditOrder() {
+      this.isEditing = false;
     },
     deleteOrder: function deleteOrder(id) {
       var _this2 = this;
@@ -2488,6 +2510,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     product: {
@@ -2502,7 +2534,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       name: this.product.name,
-      price: this.product.price
+      price: this.product.price,
+      isEditing: false
     };
   },
   computed: {
@@ -2515,6 +2548,9 @@ __webpack_require__.r(__webpack_exports__);
       return "/assets/images/" + url;
     },
     editProduct: function editProduct(id) {
+      this.isEditing = true;
+    },
+    saveEditProduct: function saveEditProduct(id) {
       var _this = this;
 
       var payload = {
@@ -2525,6 +2561,8 @@ __webpack_require__.r(__webpack_exports__);
         }
       };
       this.$store.dispatch("product/fetchProductUpdate", payload).then(function (response) {
+        _this.cancelEditProduct();
+
         _this.$modal.showSuccessModal({
           content: "Edit successfully !!!"
         });
@@ -2533,6 +2571,9 @@ __webpack_require__.r(__webpack_exports__);
           content: error.message
         });
       });
+    },
+    cancelEditProduct: function cancelEditProduct() {
+      this.isEditing = false;
     },
     deleteProduct: function deleteProduct(id) {
       var _this2 = this;
@@ -40556,27 +40597,31 @@ var render = function() {
     _c("td", { staticStyle: { "max-width": "50px" } }, [
       _vm.currentUser && _vm.currentUser.name === _vm.order.user.name
         ? _c("div", [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.amount,
-                  expression: "amount"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "number" },
-              domProps: { value: _vm.amount },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.amount = $event.target.value
-                }
-              }
-            })
+            !_vm.isEditing
+              ? _c("div", [_vm._v(_vm._s(_vm.amount))])
+              : _c("div", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.amount,
+                        expression: "amount"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "number" },
+                    domProps: { value: _vm.amount },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.amount = $event.target.value
+                      }
+                    }
+                  })
+                ])
           ])
         : _c("div", [_vm._v(_vm._s(_vm.order.amount))])
     ]),
@@ -40590,27 +40635,31 @@ var render = function() {
     _c("td", { attrs: { nowrap: "" } }, [
       _vm.currentUser && _vm.currentUser.name === _vm.order.user.name
         ? _c("div", [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.note,
-                  expression: "note"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "text" },
-              domProps: { value: _vm.note },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.note = $event.target.value
-                }
-              }
-            })
+            !_vm.isEditing
+              ? _c("div", [_vm._v(_vm._s(_vm.note))])
+              : _c("div", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.note,
+                        expression: "note"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "text" },
+                    domProps: { value: _vm.note },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.note = $event.target.value
+                      }
+                    }
+                  })
+                ])
           ])
         : _c("div", [_vm._v(_vm._s(_vm.order.note))])
     ]),
@@ -40618,31 +40667,61 @@ var render = function() {
     _c("td", { attrs: { nowrap: "" } }, [
       _vm.currentUser && _vm.currentUser.name === _vm.order.user.name
         ? _c("div", [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary",
-                on: {
-                  click: function($event) {
-                    return _vm.editOrder(_vm.order.id)
-                  }
-                }
-              },
-              [_vm._v("Edit")]
-            ),
-            _vm._v("\n      |\n      "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-danger",
-                on: {
-                  click: function($event) {
-                    return _vm.deleteOrder(_vm.order.id)
-                  }
-                }
-              },
-              [_vm._v("Delete")]
-            )
+            !_vm.isEditing
+              ? _c("div", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      on: {
+                        click: function($event) {
+                          return _vm.editOrder()
+                        }
+                      }
+                    },
+                    [_vm._v("Edit")]
+                  ),
+                  _vm._v("\n        |\n        "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger",
+                      on: {
+                        click: function($event) {
+                          return _vm.deleteOrder(_vm.order.id)
+                        }
+                      }
+                    },
+                    [_vm._v("Delete")]
+                  )
+                ])
+              : _c("div", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      on: {
+                        click: function($event) {
+                          return _vm.saveEditOrder(_vm.order.id)
+                        }
+                      }
+                    },
+                    [_vm._v("Save")]
+                  ),
+                  _vm._v("\n        |\n        "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      on: {
+                        click: function($event) {
+                          return _vm.cancelEditOrder()
+                        }
+                      }
+                    },
+                    [_vm._v("Cancel")]
+                  )
+                ])
           ])
         : _vm._e()
     ])
@@ -40684,27 +40763,31 @@ var render = function() {
     _c("td", { attrs: { nowrap: "" } }, [
       _vm.currentUser && _vm.currentUser.admin
         ? _c("div", [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.price,
-                  expression: "price"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "number" },
-              domProps: { value: _vm.price },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.price = $event.target.value
-                }
-              }
-            })
+            !_vm.isEditing
+              ? _c("div", [_vm._v(_vm._s(_vm.product.price))])
+              : _c("div", [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.price,
+                        expression: "price"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { type: "number" },
+                    domProps: { value: _vm.price },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.price = $event.target.value
+                      }
+                    }
+                  })
+                ])
           ])
         : _c("div", [_vm._v(_vm._s(_vm.product.price))])
     ]),
@@ -40716,31 +40799,61 @@ var render = function() {
     _c("td", { attrs: { nowrap: "" } }, [
       _vm.currentUser && _vm.currentUser.admin
         ? _c("div", [
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-primary",
-                on: {
-                  click: function($event) {
-                    return _vm.editProduct(_vm.product.id)
-                  }
-                }
-              },
-              [_vm._v("Edit")]
-            ),
-            _vm._v("\n      |\n      "),
-            _c(
-              "button",
-              {
-                staticClass: "btn btn-danger",
-                on: {
-                  click: function($event) {
-                    return _vm.deleteProduct(_vm.product.id)
-                  }
-                }
-              },
-              [_vm._v("Delete")]
-            )
+            !_vm.isEditing
+              ? _c("div", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      on: {
+                        click: function($event) {
+                          return _vm.editProduct()
+                        }
+                      }
+                    },
+                    [_vm._v("Edit")]
+                  ),
+                  _vm._v("\n        |\n        "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger",
+                      on: {
+                        click: function($event) {
+                          return _vm.deleteProduct(_vm.product.id)
+                        }
+                      }
+                    },
+                    [_vm._v("Delete")]
+                  )
+                ])
+              : _c("div", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary",
+                      on: {
+                        click: function($event) {
+                          return _vm.saveEditProduct(_vm.product.id)
+                        }
+                      }
+                    },
+                    [_vm._v("Save")]
+                  ),
+                  _vm._v("\n        |\n        "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      on: {
+                        click: function($event) {
+                          return _vm.cancelEditProduct()
+                        }
+                      }
+                    },
+                    [_vm._v("Cancel")]
+                  )
+                ])
           ])
         : _vm._e()
     ])
@@ -59416,9 +59529,9 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, _mutation_types__W
 }), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["PRODUCT_STORE"], function (state, product) {
   state.products.unshift(product);
 }), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["PRODUCT_UPDATE"], function (state, product) {
-  state.products.splice(state.products.map(function (product) {
-    return product.id;
-  }).indexOf(id), product);
+  state.products.splice(state.products.map(function (x) {
+    return x.id;
+  }).indexOf(product.id), 1, product);
 }), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["PRODUCT_DESTROY"], function (state, id) {
   state.products.splice(state.products.map(function (product) {
     return product.id;

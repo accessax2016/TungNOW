@@ -19,7 +19,7 @@ const mutations = {
 		state.products.unshift(product);
     },
     [types.PRODUCT_UPDATE]: (state, product) => {
-        state.products.splice(state.products.map(product => product.id).indexOf(id), product);
+        state.products.splice(state.products.map(x => x.id).indexOf(product.id), 1, product);
     },
     [types.PRODUCT_DESTROY]: (state, id) => {
         state.products.splice(state.products.map(product => product.id).indexOf(id), 1);

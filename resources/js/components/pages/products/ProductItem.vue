@@ -7,16 +7,26 @@
     </td>
     <td nowrap>
       <div v-if="currentUser && currentUser.admin">
-        <input type="number" class="form-control" v-model="price" />
+        <div v-if="!isEditing">{{product.price}}</div>
+        <div v-else>
+          <input type="number" class="form-control" v-model="price" />
+        </div>
       </div>
       <div v-else>{{product.price}}</div>
     </td>
     <td nowrap>{{product.description}}</td>
     <td nowrap>
       <div v-if="currentUser && currentUser.admin">
-        <button class="btn btn-primary" @click="editProduct(product.id)">Edit</button>
-        |
-        <button class="btn btn-danger" @click="deleteProduct(product.id)">Delete</button>
+        <div v-if="!isEditing">
+          <button class="btn btn-primary" @click="editProduct()">Edit</button>
+          |
+          <button class="btn btn-danger" @click="deleteProduct(product.id)">Delete</button>
+        </div>
+        <div v-else>
+          <button class="btn btn-primary" @click="saveEditProduct(product.id)">Save</button>
+          |
+          <button class="btn btn-secondary" @click="cancelEditProduct()">Cancel</button>
+        </div>
       </div>
     </td>
   </tr>
@@ -37,7 +47,8 @@ export default {
   data() {
     return {
       name: this.product.name,
-      price: this.product.price
+      price: this.product.price,
+      isEditing: false
     };
   },
   computed: {
@@ -50,6 +61,9 @@ export default {
       return "/assets/images/" + url;
     },
     editProduct(id) {
+      this.isEditing = true;
+    },
+    saveEditProduct(id) {
       const payload = {
         id: id,
         product: {
@@ -61,6 +75,7 @@ export default {
       this.$store
         .dispatch("product/fetchProductUpdate", payload)
         .then(response => {
+          this.cancelEditProduct();
           this.$modal.showSuccessModal({
             content: "Edit successfully !!!"
           });
@@ -70,6 +85,9 @@ export default {
             content: error.message
           });
         });
+    },
+    cancelEditProduct() {
+      this.isEditing = false;
     },
     deleteProduct(id) {
       this.$modal.showConfirmModal({
