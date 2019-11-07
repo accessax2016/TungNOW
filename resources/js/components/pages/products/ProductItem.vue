@@ -14,7 +14,15 @@
       </div>
       <div v-else>{{product.price}}</div>
     </td>
-    <td nowrap>{{product.description}}</td>
+    <td>
+      <div v-if="currentUser && currentUser.admin">
+        <div v-if="!isEditing">{{product.description}}</div>
+        <div v-else>
+          <textarea class="form-control" cols="30" rows="5" v-model="description"></textarea>
+        </div>
+      </div>
+      <div v-else>{{product.description}}</div>
+    </td>
     <td nowrap>
       <div v-if="currentUser && currentUser.admin">
         <div v-if="!isEditing">
@@ -48,6 +56,7 @@ export default {
     return {
       name: this.product.name,
       price: this.product.price,
+      description: this.product.description,
       isEditing: false
     };
   },
@@ -68,7 +77,8 @@ export default {
         id: id,
         product: {
           name: this.name,
-          price: this.price
+          price: this.price,
+          description: this.description
         }
       };
 
@@ -87,7 +97,10 @@ export default {
         });
     },
     cancelEditProduct() {
-      this.isEditing = false;
+      (this.name = this.product.name),
+        (this.price = this.product.price),
+        (this.description = this.product.description),
+        (this.isEditing = false);
     },
     deleteProduct(id) {
       this.$modal.showConfirmModal({

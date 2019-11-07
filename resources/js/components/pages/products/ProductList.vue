@@ -11,7 +11,7 @@
             <th nowrap class="sticky-top bg-white border-top-none">#</th>
             <th nowrap class="sticky-top bg-white border-top-none">Food</th>
             <th nowrap class="sticky-top bg-white border-top-none">Price (VNĐ)</th>
-            <th nowrap class="sticky-top bg-white border-top-none">Description</th>
+            <th class="sticky-top bg-white border-top-none">Description</th>
             <th nowrap class="sticky-top bg-white border-top-none">Actions</th>
           </tr>
         </thead>

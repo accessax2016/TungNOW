@@ -16,11 +16,11 @@
     </td>
     <td nowrap>{{order.product.price}}</td>
     <td nowrap>{{order.user.name}}</td>
-    <td nowrap>
+    <td>
       <div v-if="currentUser && currentUser.name === order.user.name">
         <div v-if="!isEditing">{{note}}</div>
         <div v-else>
-          <input type="text" class="form-control" v-model="note" />
+          <textarea class="form-control" cols="30" rows="5" v-model="note"></textarea>
         </div>
       </div>
       <div v-else>{{order.note}}</div>
@@ -104,6 +104,8 @@ export default {
         });
     },
     cancelEditOrder() {
+      this.amount = this.order.amount;
+      this.note = this.order.note;
       this.isEditing = false;
     },
     deleteOrder(id) {

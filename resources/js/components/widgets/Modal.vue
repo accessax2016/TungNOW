@@ -6,6 +6,8 @@
     role="dialog"
     aria-labelledby="modalLabel"
     aria-hidden="true"
+    data-backdrop="static"
+    data-keyboard="false"
   >
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -58,7 +60,6 @@ export default {
       $("#modal").modal("show");
     },
     hide() {
-      this.isRenderComponent = false;
       $("#modal").modal("hide");
     },
     showComponentModal(params) {
@@ -125,6 +126,12 @@ export default {
     });
     Modal.EventBus.$on("showConfirmModal", params => {
       this.showConfirmModal(params);
+    });
+  },
+  mounted() {
+    // $("#modal").modal("hide");
+    $("#modal").on("hidden.bs.modal", e => {
+      this.isRenderComponent = false;
     });
   }
 };

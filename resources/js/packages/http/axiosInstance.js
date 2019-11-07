@@ -9,6 +9,10 @@ axiosInstance.interceptors.request.use(config => {
     app.$spinner.show();
     numberOfRequest++;
     return config;
+}, (error) => {
+    app.$spinner.show();
+    numberOfRequest++;
+    return Promise.reject(error);
 });
 
 axiosInstance.interceptors.response.use(response => {
@@ -17,6 +21,12 @@ axiosInstance.interceptors.response.use(response => {
         app.$spinner.hide();
     }
     return response;
+}, (error) => {
+    numberOfRequest--;
+    if (numberOfRequest === 0) {
+        app.$spinner.hide();
+    }
+    return Promise.reject(error);
 });
 
 export default axiosInstance;

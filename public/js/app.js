@@ -2453,6 +2453,8 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     cancelEditOrder: function cancelEditOrder() {
+      this.amount = this.order.amount;
+      this.note = this.order.note;
       this.isEditing = false;
     },
     deleteOrder: function deleteOrder(id) {
@@ -2523,6 +2525,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     product: {
@@ -2538,6 +2548,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       name: this.product.name,
       price: this.product.price,
+      description: this.product.description,
       isEditing: false
     };
   },
@@ -2560,7 +2571,8 @@ __webpack_require__.r(__webpack_exports__);
         id: id,
         product: {
           name: this.name,
-          price: this.price
+          price: this.price,
+          description: this.description
         }
       };
       this.$store.dispatch("product/fetchProductUpdate", payload).then(function (response) {
@@ -2576,7 +2588,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     cancelEditProduct: function cancelEditProduct() {
-      this.isEditing = false;
+      this.name = this.product.name, this.price = this.product.price, this.description = this.product.description, this.isEditing = false;
     },
     deleteProduct: function deleteProduct(id) {
       var _this2 = this;
@@ -2807,6 +2819,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2824,7 +2838,6 @@ __webpack_require__.r(__webpack_exports__);
       $("#modal").modal("show");
     },
     hide: function hide() {
-      this.isRenderComponent = false;
       $("#modal").modal("hide");
     },
     showComponentModal: function showComponentModal(params) {
@@ -2891,6 +2904,14 @@ __webpack_require__.r(__webpack_exports__);
     });
     _packages_modal__WEBPACK_IMPORTED_MODULE_0__["default"].EventBus.$on("showConfirmModal", function (params) {
       _this.showConfirmModal(params);
+    });
+  },
+  mounted: function mounted() {
+    var _this2 = this;
+
+    // $("#modal").modal("hide");
+    $("#modal").on("hidden.bs.modal", function (e) {
+      _this2.isRenderComponent = false;
     });
   }
 });
@@ -40540,14 +40561,9 @@ var staticRenderFns = [
           [_vm._v("Note")]
         ),
         _vm._v(" "),
-        _c(
-          "th",
-          {
-            staticClass: "sticky-top bg-white border-top-none",
-            attrs: { nowrap: "" }
-          },
-          [_vm._v("Actions")]
-        )
+        _c("th", { staticClass: "sticky-top bg-white border-top-none" }, [
+          _vm._v("Actions")
+        ])
       ])
     ])
   }
@@ -40779,13 +40795,13 @@ var render = function() {
     _vm._v(" "),
     _c("td", { attrs: { nowrap: "" } }, [_vm._v(_vm._s(_vm.order.user.name))]),
     _vm._v(" "),
-    _c("td", { attrs: { nowrap: "" } }, [
+    _c("td", [
       _vm.currentUser && _vm.currentUser.name === _vm.order.user.name
         ? _c("div", [
             !_vm.isEditing
               ? _c("div", [_vm._v(_vm._s(_vm.note))])
               : _c("div", [
-                  _c("input", {
+                  _c("textarea", {
                     directives: [
                       {
                         name: "model",
@@ -40795,7 +40811,7 @@ var render = function() {
                       }
                     ],
                     staticClass: "form-control",
-                    attrs: { type: "text" },
+                    attrs: { cols: "30", rows: "5" },
                     domProps: { value: _vm.note },
                     on: {
                       input: function($event) {
@@ -40939,8 +40955,36 @@ var render = function() {
         : _c("div", [_vm._v(_vm._s(_vm.product.price))])
     ]),
     _vm._v(" "),
-    _c("td", { attrs: { nowrap: "" } }, [
-      _vm._v(_vm._s(_vm.product.description))
+    _c("td", [
+      _vm.currentUser && _vm.currentUser.admin
+        ? _c("div", [
+            !_vm.isEditing
+              ? _c("div", [_vm._v(_vm._s(_vm.product.description))])
+              : _c("div", [
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.description,
+                        expression: "description"
+                      }
+                    ],
+                    staticClass: "form-control",
+                    attrs: { cols: "30", rows: "5" },
+                    domProps: { value: _vm.description },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.description = $event.target.value
+                      }
+                    }
+                  })
+                ])
+          ])
+        : _c("div", [_vm._v(_vm._s(_vm.product.description))])
     ]),
     _vm._v(" "),
     _c("td", { attrs: { nowrap: "" } }, [
@@ -41131,14 +41175,9 @@ var staticRenderFns = [
           [_vm._v("Price (VNĐ)")]
         ),
         _vm._v(" "),
-        _c(
-          "th",
-          {
-            staticClass: "sticky-top bg-white border-top-none",
-            attrs: { nowrap: "" }
-          },
-          [_vm._v("Description")]
-        ),
+        _c("th", { staticClass: "sticky-top bg-white border-top-none" }, [
+          _vm._v("Description")
+        ]),
         _vm._v(" "),
         _c(
           "th",
@@ -41284,7 +41323,9 @@ var render = function() {
         tabindex: "-1",
         role: "dialog",
         "aria-labelledby": "modalLabel",
-        "aria-hidden": "true"
+        "aria-hidden": "true",
+        "data-backdrop": "static",
+        "data-keyboard": "false"
       }
     },
     [
@@ -59560,6 +59601,10 @@ axiosInstance.interceptors.request.use(function (config) {
   _app__WEBPACK_IMPORTED_MODULE_1__["default"].$spinner.show();
   numberOfRequest++;
   return config;
+}, function (error) {
+  _app__WEBPACK_IMPORTED_MODULE_1__["default"].$spinner.show();
+  numberOfRequest++;
+  return Promise.reject(error);
 });
 axiosInstance.interceptors.response.use(function (response) {
   numberOfRequest--;
@@ -59569,6 +59614,14 @@ axiosInstance.interceptors.response.use(function (response) {
   }
 
   return response;
+}, function (error) {
+  numberOfRequest--;
+
+  if (numberOfRequest === 0) {
+    _app__WEBPACK_IMPORTED_MODULE_1__["default"].$spinner.hide();
+  }
+
+  return Promise.reject(error);
 });
 /* harmony default export */ __webpack_exports__["default"] = (axiosInstance);
 
