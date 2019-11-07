@@ -61,12 +61,13 @@ export default {
     },
     openOrderModal() {
       const params = {
-        content: 'Đang làm',
+        title: 'Add New Order',
+        content: OrderAddVue,
         onConfirm: res => {
           return;
         }
       };
-      this.$modal.showSuccessModal(params);
+      this.$modal.showComponentModal(params);
     }
   },
   mounted() {

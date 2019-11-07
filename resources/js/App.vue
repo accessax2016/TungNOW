@@ -3,12 +3,14 @@
     <Background></Background>
     <Main></Main>
     <Modal />
+    <Spinner />
   </div>
 </template>
 
 <script>
 import BackgroundVue from "./components/layouts/Background.vue";
 import MainVue from "./components/layouts/Main.vue";
+import SpinnerVue from './components/widgets/Spinner.vue';
 
 export default {
   components: {

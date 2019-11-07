@@ -15,7 +15,12 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">{{content}}</div>
+        <div class="modal-body">
+          <template v-if="!isRenderComponent">{{content}}</template>
+          <template v-else>
+            <component :is="content"></component>
+          </template>
+        </div>
         <div class="modal-footer">
           <button
             v-if="secondaryBtn"
@@ -44,7 +49,8 @@ export default {
       content: "Content",
       primaryBtn: "Primary Button",
       secondaryBtn: "Secondary Button",
-      onConfirm: {}
+      onConfirm: {},
+      isRenderComponent: false
     };
   },
   methods: {
@@ -52,11 +58,13 @@ export default {
       $("#modal").modal("show");
     },
     hide() {
+      this.isRenderComponent = false;
       $("#modal").modal("hide");
     },
     showComponentModal(params) {
+      this.isRenderComponent = true;
       this.title = params.title || "Component Title";
-      this.content = params.content || "Component Content";
+      this.content = params.content || null;
       this.primaryBtn = params.primaryBtn || "Save";
       this.secondaryBtn = params.secondaryBtn || "Cancel";
       this.onConfirm = params.onConfirm || {};

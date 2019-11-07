@@ -13,10 +13,12 @@ import vSelect from 'vue-select';
 import Auth from './packages/auth';
 import stores from './stores/index';
 import Modal from './packages/modal';
+import Spinner from './packages/spinner';
 
 Vue.component('v-select', vSelect);
 Vue.use(Auth);
-Vue.use(Modal)
+Vue.use(Modal);
+Vue.use(Spinner);
 
 routers.beforeEach((to, from, next) => {
 	if (to.matched.some(record => record.meta.guest)) {
@@ -28,11 +30,11 @@ routers.beforeEach((to, from, next) => {
 		}
 	}
 	else {
-        if (Vue.auth.isAuthenticated()) {
-            next();
+		if (Vue.auth.isAuthenticated()) {
+			next();
 		}
 		else {
-            next({ name: 'login' });
+			next({ name: 'login' });
 		}
 	}
 });
@@ -57,11 +59,13 @@ routers.beforeEach((to, from, next) => {
  */
 
 const app = new Vue({
-    el: '#app',
-    router: routers,
-    store: stores
+	el: '#app',
+	router: routers,
+	store: stores
 });
 
 // Vue.config.devtools = false
 // Vue.config.debug = false
 // Vue.config.silent = true
+
+export default app;

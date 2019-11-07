@@ -1,4 +1,5 @@
 import * as types from '../mutation-types';
+import axiosInstance from '../../packages/http/axiosInstance';
 
 // State
 const state = {
@@ -29,7 +30,7 @@ const mutations = {
 const actions = {
 	fetchProductList: ({ commit }) => {
 		return new Promise((resolve, reject) => {
-			axios.get('/api/products')
+			axiosInstance.get('/api/products')
 			.then(response => {
 	            // console.log(response);
                 commit(types.PRODUCT_LIST, response.data.data);
@@ -43,7 +44,7 @@ const actions = {
     },
     fetchProductStore: ({ commit }, payload) => {
 		return new Promise((resolve, reject) => {
-			axios.post('/api/products', payload.product)
+			axiosInstance.post('/api/products', payload.product)
 			.then(response => {
                 // console.log(response);
                 commit(types.PRODUCT_STORE, response.data.data);
@@ -57,7 +58,7 @@ const actions = {
     },
     fetchProductUpdate: ({ commit }, payload) => {
 		return new Promise((resolve, reject) => {
-			axios.put('/api/products/' + payload.id, payload.product)
+			axiosInstance.put('/api/products/' + payload.id, payload.product)
 			.then(response => {
                 // console.log(response);
                 commit(types.PRODUCT_UPDATE, response.data.data);
@@ -71,7 +72,7 @@ const actions = {
     },
     fetchProductDestroy: ({ commit }, payload) => {
 		return new Promise((resolve, reject) => {
-			axios.delete('/api/products/' + payload.id)
+			axiosInstance.delete('/api/products/' + payload.id)
 			.then(response => {
                 // console.log(response);
                 commit(types.PRODUCT_DESTROY, payload.id);

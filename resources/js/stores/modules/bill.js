@@ -1,4 +1,5 @@
 import * as types from '../mutation-types';
+import axiosInstance from '../../packages/http/axiosInstance';
 
 // State
 const state = {
@@ -27,7 +28,7 @@ const mutations = {
         state.bill = bill;
     },
     [types.ORDER_ADD]: (state, order) => {
-		state.bill.orders.unshift(order);
+        state.bill.orders.unshift(order);
     },
     [types.ORDER_EDIT]: (state, order) => {
         state.bill.orders.splice(state.bill.orders.map(x => x.id).indexOf(order.id), 1, order);
@@ -46,11 +47,25 @@ const mutations = {
 const actions = {
     fetchBillToday: ({ commit }) => {
         return new Promise((resolve, reject) => {
-            axios.get('/api/bills?pageSize=1&pageNumber=1')
+            axiosInstance.get('/api/bills?pageSize=1&pageNumber=1')
                 .then(response => {
                     // console.log(response);
                     const data = response.data.data;
                     commit(types.BILL_TODAY, data.length > 0 ? data[0] : []);
+                    resolve(response);
+                })
+                .catch(error => {
+                    console.log(error);
+                    reject(error.response.data);
+                });
+        });
+    },
+    fetchBillStore: ({ commit }, payload) => {
+        return new Promise((resolve, reject) => {
+            axiosInstance.post('/api/bills', payload.bill)
+                .then(response => {
+                    // console.log(response);
+                    commit(types.BILL_STORE, response.data.data);
                     resolve(response);
                 })
                 .catch(error => {
@@ -59,61 +74,47 @@ const actions = {
                 });
         });
     },
-    fetchBillStore: ({ commit }, payload) => {
-		return new Promise((resolve, reject) => {
-			axios.post('/api/bills', payload.bill)
-			.then(response => {
-                // console.log(response);
-                commit(types.BILL_STORE, response.data.data);
-	            resolve(response);
-	        })
-			.catch(error => {
-	            // console.log(error);
-	            reject(error.response.data);
-	        });
-		});
-    },
     fetchOrderStore: ({ commit }, payload) => {
-		return new Promise((resolve, reject) => {
-			axios.post('/api/orders', payload.order)
-			.then(response => {
-                // console.log(response);
-                commit(types.ORDER_ADD, response.data.data);
-	            resolve(response);
-	        })
-			.catch(error => {
-	            // console.log(error);
-	            reject(error.response.data);
-	        });
-		});
+        return new Promise((resolve, reject) => {
+            axiosInstance.post('/api/orders', payload.order)
+                .then(response => {
+                    // console.log(response);
+                    commit(types.ORDER_ADD, response.data.data);
+                    resolve(response);
+                })
+                .catch(error => {
+                    // console.log(error);
+                    reject(error.response.data);
+                });
+        });
     },
     fetchOrderUpdate: ({ commit }, payload) => {
-		return new Promise((resolve, reject) => {
-			axios.put('/api/orders/' + payload.id, payload.order)
-			.then(response => {
-                // console.log(response);
-                commit(types.ORDER_EDIT, response.data.data);
-	            resolve(response);
-	        })
-			.catch(error => {
-	            // console.log(error);
-	            reject(error.response.data);
-	        });
-		});
+        return new Promise((resolve, reject) => {
+            axiosInstance.put('/api/orders/' + payload.id, payload.order)
+                .then(response => {
+                    // console.log(response);
+                    commit(types.ORDER_EDIT, response.data.data);
+                    resolve(response);
+                })
+                .catch(error => {
+                    // console.log(error);
+                    reject(error.response.data);
+                });
+        });
     },
     fetchOrderDestroy: ({ commit }, payload) => {
-		return new Promise((resolve, reject) => {
-			axios.delete('/api/orders/' + payload.id)
-			.then(response => {
-                // console.log(response);
-                commit(types.ORDER_DELETE, payload.id);
-	            resolve(response);
-	        })
-			.catch(error => {
-	            // console.log(error);
-	            reject(error.response.data);
-	        });
-		});
+        return new Promise((resolve, reject) => {
+            axiosInstance.delete('/api/orders/' + payload.id)
+                .then(response => {
+                    // console.log(response);
+                    commit(types.ORDER_DELETE, payload.id);
+                    resolve(response);
+                })
+                .catch(error => {
+                    // console.log(error);
+                    reject(error.response.data);
+                });
+        });
     },
     setDisabledBill: ({ commit }, disabled) => {
         commit(types.BILL_DISABLED, disabled);

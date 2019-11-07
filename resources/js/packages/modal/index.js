@@ -4,9 +4,9 @@ const Modal = {
 
     install(Vue, options) {
 
-        this.EventBus = new Vue()
+        this.EventBus = new Vue();
 
-        Vue.component('Modal', ModalVue)
+        Vue.component('Modal', ModalVue);
 
         Vue.prototype.$modal = {
 
@@ -31,10 +31,10 @@ const Modal = {
 
             }
 
-        }
+        };
 
     }
 
 }
 
-export default Modal
+export default Modal;

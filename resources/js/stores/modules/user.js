@@ -1,4 +1,5 @@
 import * as types from '../mutation-types';
+import axiosInstance from '../../packages/http/axiosInstance';
 
 // State
 const state = {
@@ -23,7 +24,7 @@ const mutations = {
 const actions = {
 	fetchCurrentUser: ({ commit }) => {
 		return new Promise((resolve, reject) => {
-			axios.get('/api/user')
+			axiosInstance.get('/api/user')
 			.then(response => {
 	            // console.log(response);
                 commit(types.CURRENT_USER, response.data);
@@ -37,7 +38,7 @@ const actions = {
 	},
 	register: ({ commit }, payload) => {
 		return new Promise((resolve, reject) => {
-			axios.post('/api/register', payload.user)
+			axiosInstance.post('/api/register', payload.user)
 			.then(response => {
 	            // console.log(response);
 	            resolve(response);
@@ -50,7 +51,7 @@ const actions = {
 	},
 	logout: ({ commit }) => {
 		return new Promise((resolve, reject) => {
-			axios.post('/api/logout')
+			axiosInstance.post('/api/logout')
 			.then(response => {
 	            // console.log(response);
             	commit(types.CURRENT_USER, null)	           
