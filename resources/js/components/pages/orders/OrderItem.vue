@@ -7,14 +7,14 @@
     </td>
     <td style="max-width: 50px;">
       <div v-if="currentUser && currentUser.name === order.user.name">
-        <div v-if="!isEditing">{{amount}}</div>
+        <div v-if="!isEditing">{{amount | number}}</div>
         <div v-else>
           <input type="number" class="form-control" v-model="amount" />
         </div>
       </div>
-      <div v-else>{{order.amount}}</div>
+      <div v-else>{{order.amount | number}}</div>
     </td>
-    <td nowrap>{{order.product.price}}</td>
+    <td nowrap>{{order.product.price | number}}</td>
     <td nowrap>{{order.user.name}}</td>
     <td>
       <div v-if="currentUser && currentUser.name === order.user.name">

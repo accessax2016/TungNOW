@@ -20,6 +20,10 @@ Vue.use(Auth);
 Vue.use(Modal);
 Vue.use(Spinner);
 
+Vue.filter('number', (value) => {
+	return (+value).toLocaleString();
+})
+
 routers.beforeEach((to, from, next) => {
 	if (to.matched.some(record => record.meta.guest)) {
 		if (Vue.auth.isAuthenticated()) {

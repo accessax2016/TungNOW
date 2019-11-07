@@ -8,16 +8,16 @@
             <th nowrap class="sticky-top bg-white border-top-none">Food</th>
             <th nowrap class="sticky-top bg-white border-top-none">Price (VNĐ)</th>
             <th nowrap class="sticky-top bg-white border-top-none">Amount</th>
-            <th nowrap class="sticky-top bg-white border-top-none">Note</th>
+            <th class="sticky-top bg-white border-top-none">Note</th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(order, index) in orders" :key="index">
             <td nowrap>{{index + 1}}</td>
             <td nowrap>{{order.product.name}}</td>
-            <td nowrap>{{order.product.price}}</td>
-            <td nowrap>{{order.amount}}</td>
-            <td nowrap>{{order.note}}</td>
+            <td nowrap>{{order.product.price | number}}</td>
+            <td nowrap>{{order.amount | number}}</td>
+            <td>{{order.note}}</td>
           </tr>
         </tbody>
       </table>

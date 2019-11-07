@@ -40613,16 +40613,14 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("td", { attrs: { nowrap: "" } }, [
-                    _vm._v(_vm._s(order.product.price))
+                    _vm._v(_vm._s(_vm._f("number")(order.product.price)))
                   ]),
                   _vm._v(" "),
                   _c("td", { attrs: { nowrap: "" } }, [
-                    _vm._v(_vm._s(order.amount))
+                    _vm._v(_vm._s(_vm._f("number")(order.amount)))
                   ]),
                   _vm._v(" "),
-                  _c("td", { attrs: { nowrap: "" } }, [
-                    _vm._v(_vm._s(order.note))
-                  ])
+                  _c("td", [_vm._v(_vm._s(order.note))])
                 ])
               }),
               0
@@ -40676,14 +40674,9 @@ var staticRenderFns = [
           [_vm._v("Amount")]
         ),
         _vm._v(" "),
-        _c(
-          "th",
-          {
-            staticClass: "sticky-top bg-white border-top-none",
-            attrs: { nowrap: "" }
-          },
-          [_vm._v("Note")]
-        )
+        _c("th", { staticClass: "sticky-top bg-white border-top-none" }, [
+          _vm._v("Note")
+        ])
       ])
     ])
   }
@@ -40761,7 +40754,7 @@ var render = function() {
       _vm.currentUser && _vm.currentUser.name === _vm.order.user.name
         ? _c("div", [
             !_vm.isEditing
-              ? _c("div", [_vm._v(_vm._s(_vm.amount))])
+              ? _c("div", [_vm._v(_vm._s(_vm._f("number")(_vm.amount)))])
               : _c("div", [
                   _c("input", {
                     directives: [
@@ -40786,11 +40779,11 @@ var render = function() {
                   })
                 ])
           ])
-        : _c("div", [_vm._v(_vm._s(_vm.order.amount))])
+        : _c("div", [_vm._v(_vm._s(_vm._f("number")(_vm.order.amount)))])
     ]),
     _vm._v(" "),
     _c("td", { attrs: { nowrap: "" } }, [
-      _vm._v(_vm._s(_vm.order.product.price))
+      _vm._v(_vm._s(_vm._f("number")(_vm.order.product.price)))
     ]),
     _vm._v(" "),
     _c("td", { attrs: { nowrap: "" } }, [_vm._v(_vm._s(_vm.order.user.name))]),
@@ -40927,7 +40920,7 @@ var render = function() {
       _vm.currentUser && _vm.currentUser.admin
         ? _c("div", [
             !_vm.isEditing
-              ? _c("div", [_vm._v(_vm._s(_vm.product.price))])
+              ? _c("div", [_vm._v(_vm._s(_vm._f("number")(_vm.product.price)))])
               : _c("div", [
                   _c("input", {
                     directives: [
@@ -40952,7 +40945,7 @@ var render = function() {
                   })
                 ])
           ])
-        : _c("div", [_vm._v(_vm._s(_vm.product.price))])
+        : _c("div", [_vm._v(_vm._s(_vm._f("number")(_vm.product.price)))])
     ]),
     _vm._v(" "),
     _c("td", [
@@ -57921,6 +57914,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('v-select', vue_select__WEB
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(_packages_auth__WEBPACK_IMPORTED_MODULE_3__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(_packages_modal__WEBPACK_IMPORTED_MODULE_5__["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(_packages_spinner__WEBPACK_IMPORTED_MODULE_6__["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.filter('number', function (value) {
+  return (+value).toLocaleString();
+});
 _routers_routers__WEBPACK_IMPORTED_MODULE_1__["default"].beforeEach(function (to, from, next) {
   if (to.matched.some(function (record) {
     return record.meta.guest;

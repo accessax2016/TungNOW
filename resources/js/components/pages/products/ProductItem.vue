@@ -7,12 +7,12 @@
     </td>
     <td nowrap>
       <div v-if="currentUser && currentUser.admin">
-        <div v-if="!isEditing">{{product.price}}</div>
+        <div v-if="!isEditing">{{product.price | number}}</div>
         <div v-else>
           <input type="number" class="form-control" v-model="price" />
         </div>
       </div>
-      <div v-else>{{product.price}}</div>
+      <div v-else>{{product.price | number}}</div>
     </td>
     <td>
       <div v-if="currentUser && currentUser.admin">
