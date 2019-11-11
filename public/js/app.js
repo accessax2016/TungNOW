@@ -52700,7 +52700,7 @@ var staticRenderFns = [
         _c("div", { staticClass: "suffix ml-1 pl-1 pr-1" }, [_vm._v("now")])
       ]),
       _vm._v(" "),
-      _c("p", { staticClass: "version" }, [_vm._v("alpha")])
+      _c("p", { staticClass: "version" }, [_vm._v("beta")])
     ])
   }
 ]

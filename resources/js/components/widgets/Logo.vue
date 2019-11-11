@@ -4,7 +4,7 @@
       <div class="prefix">tung</div>
       <div class="suffix ml-1 pl-1 pr-1">now</div>
     </div>
-    <p class="version">alpha</p>
+    <p class="version">beta</p>
   </div>
 </template>
 
