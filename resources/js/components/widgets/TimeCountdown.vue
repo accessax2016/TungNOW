@@ -9,7 +9,7 @@
       <div v-else>
         <h1 class="logan text-center">Game Over !!! TungNOW is delivering</h1>
       </div>
-      <button class="btn btn-lg btn-order" @click="openOrderModal()">ORDER NOW</button>
+      <button class="btn btn-lg btn-order" @click="redirectToOrder()">ORDER NOW</button>
     </div>
   </div>
 </template>
@@ -59,15 +59,8 @@ export default {
         1}-${deadline.getDate()} ${deadline.getHours()}:${deadline.getMinutes()}:${deadline.getSeconds()}`;
       return string;
     },
-    openOrderModal() {
-      const params = {
-        title: 'Add New Order',
-        content: OrderAddVue,
-        onConfirm: res => {
-          return;
-        }
-      };
-      this.$modal.showComponentModal(params);
+    redirectToOrder() {
+      this.$router.push({ name: 'orders' });
     }
   },
   mounted() {

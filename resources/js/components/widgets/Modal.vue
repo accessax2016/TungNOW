@@ -20,7 +20,7 @@
         <div class="modal-body">
           <template v-if="!isRenderComponent">{{content}}</template>
           <template v-else>
-            <component :is="content"></component>
+            <component ref="child" :is="content"></component>
           </template>
         </div>
         <div class="modal-footer">
@@ -99,7 +99,8 @@ export default {
     },
     onPrimaryButton() {
       if (typeof this.onConfirm === "function") {
-        this.onConfirm(true);
+        const data = _.toArray(this.$refs.child.products) || true;
+        this.onConfirm(data);
         this.hide();
       } else {
         this.hide();
@@ -155,11 +156,13 @@ export default {
   display: inline-block;
   text-align: left;
   vertical-align: middle;
+  max-width: calc(100vw - 1rem);
 }
 
 @media only screen and (min-width: 576px) {
   .modal-dialog {
     min-width: 500px !important;
+    // max-width: fit-content;
   }
 }
 .modal-footer {

@@ -14,11 +14,19 @@ import Auth from './packages/auth';
 import stores from './stores/index';
 import Modal from './packages/modal';
 import Spinner from './packages/spinner';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faShoppingCart, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 Vue.component('v-select', vSelect);
 Vue.use(Auth);
 Vue.use(Modal);
 Vue.use(Spinner);
+
+library.add(faShoppingCart)
+library.add(faPlus);
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.filter('number', (value) => {
 	return (+value).toLocaleString();

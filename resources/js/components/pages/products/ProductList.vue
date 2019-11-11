@@ -45,16 +45,16 @@ export default {
     }
   },
   methods: {
-    fetchProductList() {
-      this.$store
-        .dispatch("product/fetchProductList")
-        .then(response => {})
-        .catch(error => {
-          this.$modal.showErrorModal({
-            content: error.message
-          });
-        });
-    },
+    // fetchProductList() {
+    //   this.$store
+    //     .dispatch("product/fetchProductList")
+    //     .then(response => {})
+    //     .catch(error => {
+    //       this.$modal.showErrorModal({
+    //         content: error.message
+    //       });
+    //     });
+    // },
     addNewProduct() {
       if (!this.new_product) {
         return;
@@ -80,9 +80,9 @@ export default {
         });
     }
   },
-  created() {
-    this.fetchProductList();
-  }
+  // created() {
+  //   this.fetchProductList();
+  // }
 };
 </script>
 

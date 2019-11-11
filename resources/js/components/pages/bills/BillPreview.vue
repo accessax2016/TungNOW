@@ -33,7 +33,7 @@ export default {
   computed: {
     orders() {
       return this.$store.getters["bill/getOrdersToday"].reduce((acc, cur) => {
-        const index = acc.map(x => x.product.name).indexOf(cur.product.name);
+        const index = acc.map(x => x.product.id).indexOf(cur.product.id);
         if (index === -1) {
           acc.push({
             product: cur.product,

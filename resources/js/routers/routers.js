@@ -3,12 +3,11 @@ import VueRouter from 'vue-router';
 
 
 import App from '../App.vue';
-import BillListVue from '../components/pages/bills/BillList.vue';
-import BillPreviewVue from '../components/pages/bills/BillPreview.vue';
 import BillContainerVue from '../components/pages/bills/BillContainer.vue';
 import ProductListVue from '../components/pages/products/ProductList.vue';
 import LoginVue from '../components/pages/auth/Login.vue';
 import RegisterVue from '../components/pages/auth/Register.vue';
+import OrderListVue from '../components/pages/orders/OrderList.vue';
 
 Vue.use(VueRouter);
 
@@ -50,6 +49,11 @@ const routers = new VueRouter({
                     component: ProductListVue,
                     name: 'products'
                 },
+                {
+                    path: 'orders',
+                    component: OrderListVue,
+                    name: 'orders'
+                }
             ]
         },
         

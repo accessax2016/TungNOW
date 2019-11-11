@@ -23,26 +23,26 @@ export default {
     };
   },
   methods: {
-    fetchBillToday() {
-      this.$store
-        .dispatch("bill/fetchBillToday")
-        .then(response => {})
-        .catch(error => {
-          this.$modal.showErrorModal({
-            content: error.message
-          });
-        });
-    },
-    fetchProductList() {
-      this.$store
-        .dispatch("product/fetchProductList")
-        .then(response => {})
-        .catch(error => {
-          this.$modal.showErrorModal({
-            content: error.message
-          });
-        });
-    },
+    // fetchBillToday() {
+    //   this.$store
+    //     .dispatch("bill/fetchBillToday")
+    //     .then(response => {})
+    //     .catch(error => {
+    //       this.$modal.showErrorModal({
+    //         content: error.message
+    //       });
+    //     });
+    // },
+    // fetchProductList() {
+    //   this.$store
+    //     .dispatch("product/fetchProductList")
+    //     .then(response => {})
+    //     .catch(error => {
+    //       this.$modal.showErrorModal({
+    //         content: error.message
+    //       });
+    //     });
+    // },
     changeToBillPreview() {
       this.currentView = BillPreviewVue;
       this.indexView = 2;
@@ -53,8 +53,8 @@ export default {
     }
   },
   created() {
-    this.fetchBillToday();
-    this.fetchProductList();
+    // this.fetchBillToday();
+    // this.fetchProductList();
   }
 };
 </script>

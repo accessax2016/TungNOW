@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import user from './modules/user';
 import product from './modules/product';
 import bill from './modules/bill';
+import cart from './modules/cart';
 
 Vue.use(Vuex);
 
@@ -10,7 +11,8 @@ export default new Vuex.Store ({
 	modules: {
 		user,
 		product,
-		bill
+		bill,
+		cart
 	},
-	strict: true,
+	// strict: true,
 })

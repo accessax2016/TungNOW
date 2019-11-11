@@ -1,34 +1,34 @@
 <template>
   <div class="flex-grow-1 main-section d-flex flex-column">
-    <v-select
+    <!-- <v-select
       v-model="addNew"
       :options="products"
       label="name"
       placeholder="Please choose your food"
       @input="setSelected"
       :disabled="billDisabled"
-    ></v-select>
-    <div class="flex-grow-1 table-responsive-xl mt-3 bill-list">
-      <table class="table table-striped table-hover">
+    ></v-select>-->
+    <div class="flex-grow-1 mt-3 bill-list">
+      <table class="table table-striped table-hover table-responsive-xl">
         <thead>
           <tr>
             <th nowrap class="sticky-top bg-white border-top-none">#</th>
             <th nowrap class="sticky-top bg-white border-top-none">Food</th>
-            <th nowrap class="sticky-top bg-white border-top-none">Amount</th>
             <th nowrap class="sticky-top bg-white border-top-none">Price (VNĐ)</th>
+            <th nowrap class="sticky-top bg-white border-top-none">Amount</th>
             <th nowrap class="sticky-top bg-white border-top-none">Customer</th>
             <th nowrap class="sticky-top bg-white border-top-none">Note</th>
             <th class="sticky-top bg-white border-top-none">Actions</th>
           </tr>
         </thead>
         <tbody>
-          <OrderItem
+          <BillItem
             v-for="(order, index) in orders"
             :key="order.id"
             :order="order"
             :index="index"
             :bill_id="bill.id"
-          ></OrderItem>
+          />
         </tbody>
       </table>
     </div>
@@ -36,10 +36,10 @@
 </template>
 
 <script>
-import OrderItemVue from "../orders/OrderItem.vue";
+import BillItemVue from "../bills/BillItem.vue";
 export default {
   components: {
-    OrderItem: OrderItemVue
+    BillItem: BillItemVue
   },
   data() {
     return {

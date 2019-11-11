@@ -18,7 +18,7 @@
       <div v-if="currentUser && currentUser.admin">
         <div v-if="!isEditing">{{product.description}}</div>
         <div v-else>
-          <textarea class="form-control" cols="30" rows="5" v-model="description"></textarea>
+          <textarea class="form-control" cols="30" rows="1" v-model="description"></textarea>
         </div>
       </div>
       <div v-else>{{product.description}}</div>

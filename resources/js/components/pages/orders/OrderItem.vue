@@ -1,142 +1,87 @@
 <template>
-  <tr>
-    <td nowrap>{{index + 1}}</td>
-    <td nowrap>
-      <img class="img-food mr-1" :src="sourceImage(order.product.image)" alt="product" />
-      {{order.product.name}}
-    </td>
-    <td style="max-width: 50px;">
-      <div v-if="currentUser && currentUser.name === order.user.name">
-        <div v-if="!isEditing">{{amount | number}}</div>
-        <div v-else>
-          <input type="number" class="form-control" v-model="amount" />
-        </div>
-      </div>
-      <div v-else>{{order.amount | number}}</div>
-    </td>
-    <td nowrap>{{order.product.price | number}}</td>
-    <td nowrap>{{order.user.name}}</td>
-    <td>
-      <div v-if="currentUser && currentUser.name === order.user.name">
-        <div v-if="!isEditing">{{note}}</div>
-        <div v-else>
-          <textarea class="form-control" cols="30" rows="5" v-model="note"></textarea>
-        </div>
-      </div>
-      <div v-else>{{order.note}}</div>
-    </td>
-    <td nowrap>
-      <div v-if="currentUser && currentUser.name === order.user.name">
-        <div v-if="!isEditing">
-          <button class="btn btn-primary" @click="editOrder()">Edit</button>
-          |
-          <button class="btn btn-danger" @click="deleteOrder(order.id)">Delete</button>
-        </div>
-        <div v-else>
-          <button class="btn btn-primary" @click="saveEditOrder(order.id)">Save</button>
-          |
-          <button class="btn btn-secondary" @click="cancelEditOrder()">Cancel</button>
-        </div>
-      </div>
-    </td>
-  </tr>
+  <div class="card">
+    <img :src="sourceImage(product.image)" class="card-img-top img-fluid" alt="product" />
+    <div class="card-body">
+      <h5 class="card-title">{{product.name}}</h5>
+      <h5 class="card-title">{{product.price | number}} VNĐ</h5>
+      <p class="card-text">
+        <small class="text-muted">{{product.description}}</small>
+      </p>
+      <button class="btn btn-primary" @click="addToCart(product)">Add to cart</button>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
   props: {
-    order: {
+    product: {
       type: Object,
       require: true
-    },
-    index: {
-      type: Number,
-      require: true
-    },
-    bill_id: {
-      type: Number,
-      require: true
-    }
-  },
-  data() {
-    return {
-      amount: this.order.amount,
-      note: this.order.note,
-      isEditing: false
-    };
-  },
-  computed: {
-    currentUser() {
-      return this.$store.getters["user/getCurrentUser"];
     }
   },
   methods: {
     sourceImage(url) {
       return "/assets/images/" + url;
     },
-    editOrder() {
-      this.isEditing = true;
-    },
-    saveEditOrder(id) {
-      const payload = {
-        id: id,
-        order: {
-          product_id: this.order.product.id,
-          status_id: 3,
-          bill_id: this.bill_id,
-          amount: this.amount,
-          note: this.note
-        }
-      };
+    addToCart(product) {
+      const cart = $(".btn-cart");
+      var imgtodrag = $(this.$el)
+        .find("img")
+        .eq(0);
+      if (imgtodrag) {
+        const imgclone = imgtodrag
+          .clone()
+          .offset({
+            top: imgtodrag.offset().top,
+            left: imgtodrag.offset().left
+          })
+          .css({
+            opacity: "0.5",
+            position: "absolute",
+            height: "200px",
+            width: "200px",
+            "z-index": "5000"
+          })
+          .appendTo($("body"))
+          .animate(
+            {
+              top: cart.offset().top,
+              left: cart.offset().left,
+              width: 50,
+              height: 50
+            },
+            1000,
+            "",
+            () => {
+              this.$store.dispatch("cart/addProductToCart", product);
+            }
+          );
 
-      this.$store
-        .dispatch("bill/fetchOrderUpdate", payload)
-        .then(response => {
-          this.cancelEditOrder();
-          this.$modal.showSuccessModal({
-            content: "Edit successfully !!!"
-          });
-        })
-        .catch(error => {
-          this.$modal.showErrorModal({
-            content: error.message
-          });
-        });
-    },
-    cancelEditOrder() {
-      this.amount = this.order.amount;
-      this.note = this.order.note;
-      this.isEditing = false;
-    },
-    deleteOrder(id) {
-      this.$modal.showConfirmModal({
-        content: "Are you sure delete this order ?",
-        onConfirm: result => {
-          if (result) {
-            const payload = {
-              id: id
-            };
-            this.$store
-              .dispatch("bill/fetchOrderDestroy", payload)
-              .then(response => {})
-              .catch(error => {
-                this.$modal.showErrorModal({
-                  content: error.message
-                });
-              });
+        imgclone.animate(
+          {
+            width: 0,
+            height: 0
+          },
+          () => {
+            imgclone.detach();
           }
-        }
-      });
+        );
+      }
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.img-food {
-  width: 50px;
+.card {
+  min-width: 199px;
+  max-width: 199px;
+  margin-left: 0;
 }
-td {
-  vertical-align: baseline;
+@media only screen and (min-width: 576px) {
+  .card {
+    margin-bottom: 15px;
+  }
 }
 </style>
