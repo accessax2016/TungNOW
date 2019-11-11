@@ -12725,7 +12725,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 switch (_context.prev = _context.next) {
                   case 0:
                     if (!res) {
-                      _context.next = 9;
+                      _context.next = 10;
                       break;
                     }
 
@@ -12747,6 +12747,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     break;
 
                   case 9:
+                    _this.$router.push({
+                      name: "bills"
+                    });
+
+                  case 10:
                   case "end":
                     return _context.stop();
                 }

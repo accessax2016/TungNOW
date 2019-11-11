@@ -40,6 +40,7 @@ export default {
               const element = res[index];
               await this.addOrder(element);
             }
+            this.$router.push({ name: "bills" });
           }
         }
       };
