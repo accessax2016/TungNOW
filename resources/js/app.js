@@ -15,7 +15,7 @@ import stores from './stores/index';
 import Modal from './packages/modal';
 import Spinner from './packages/spinner';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faShoppingCart, faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faShoppingCart, faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 Vue.component('v-select', vSelect);
@@ -25,6 +25,7 @@ Vue.use(Spinner);
 
 library.add(faShoppingCart)
 library.add(faPlus);
+library.add(faTrashAlt);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 

@@ -116,7 +116,7 @@ export default {
             content: "Register successfully !!! Rediect to login.",
             onConfirm: result => {
               if (result) {
-                this.$router.push({ name: "login" });
+                this.$router.push({ name: "login" }).catch(() => null);
               }
             }
           });

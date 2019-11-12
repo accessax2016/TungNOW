@@ -16,7 +16,6 @@
 
 <script>
 import FlipCountdown from "vue2-flip-countdown";
-import OrderAddVue from '../pages/orders/OrderAdd.vue';
 
 export default {
   components: {
@@ -60,7 +59,7 @@ export default {
       return string;
     },
     redirectToOrder() {
-      this.$router.push({ name: 'orders' });
+      this.$router.push({ name: 'orders' }).catch(() => null);
     }
   },
   mounted() {

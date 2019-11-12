@@ -99,7 +99,10 @@ export default {
     },
     onPrimaryButton() {
       if (typeof this.onConfirm === "function") {
-        const data = _.toArray(this.$refs.child.products) || true;
+        let data = true;
+        if (this.$refs.child) {
+          data = _.toArray(this.$refs.child.products);
+        }
         this.onConfirm(data);
         this.hide();
       } else {

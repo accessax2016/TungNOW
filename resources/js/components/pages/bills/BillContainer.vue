@@ -1,10 +1,10 @@
 <template>
   <div class="h-100 flex-grow-1 d-flex flex-column overflow-auto">
-    <component :is="currentView"></component>
-    <div class="mt-3 d-flex justify-content-end">
+    <div class="bill-action d-flex justify-content-end">
       <button v-if="indexView === 1" class="btn btn-primary" @click="changeToBillPreview()">Preview</button>
       <button v-if="indexView === 2" class="btn btn-primary" @click="changeToBillList()">Bill</button>
     </div>
+    <component :is="currentView"></component>
   </div>
 </template>
 
@@ -23,16 +23,16 @@ export default {
     };
   },
   methods: {
-    // fetchBillToday() {
-    //   this.$store
-    //     .dispatch("bill/fetchBillToday")
-    //     .then(response => {})
-    //     .catch(error => {
-    //       this.$modal.showErrorModal({
-    //         content: error.message
-    //       });
-    //     });
-    // },
+    fetchBillToday() {
+      this.$store
+        .dispatch("bill/fetchBillToday")
+        .then(response => {})
+        .catch(error => {
+          this.$modal.showErrorModal({
+            content: error.message
+          });
+        });
+    },
     // fetchProductList() {
     //   this.$store
     //     .dispatch("product/fetchProductList")
@@ -53,11 +53,17 @@ export default {
     }
   },
   created() {
-    // this.fetchBillToday();
+    this.fetchBillToday();
     // this.fetchProductList();
   }
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+.bill-action {
+  position: absolute;
+  z-index: 1000;
+  left: 50px;
+  top: 12px;
+}
 </style>

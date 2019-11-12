@@ -13,4 +13,4 @@ export const CART_ADD = 'CART_ADD';
 export const CART_EDIT = 'CART_EDIT';
 export const CART_DELETE = 'CART_DELETE';
 export const CART_SAVE = 'CART_SAVE';
-export const ORDER_CART_SAVE = 'ORDER_CART_SAVE';
+export const CART_REMOVE = 'CART_REMOVE';

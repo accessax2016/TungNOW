@@ -8,6 +8,7 @@
           <th nowrap class="sticky-top bg-white border-top-none">Price (VNĐ)</th>
           <th nowrap class="sticky-top bg-white border-top-none">Amount</th>
           <th nowrap class="sticky-top bg-white border-top-none">Note</th>
+          <th nowrap class="sticky-top bg-white border-top-none"></th>
         </tr>
       </thead>
       <tbody>
@@ -31,7 +32,22 @@ export default {
   },
   computed: {
     products() {
-      return this.$store.getters["cart/getOrderProductsInCart"];
+      return this.$store.getters["cart/getProductsInCart"].reduce(
+        (acc, cur) => {
+          const index = acc.map(x => x.id).indexOf(cur.id);
+          if (index === -1) {
+            acc.push({
+              ...cur,
+              amount: 1,
+              note: ""
+            });
+          } else {
+            acc[index].amount += 1;
+          }
+          return acc;
+        },
+        []
+      );
     }
   }
 };

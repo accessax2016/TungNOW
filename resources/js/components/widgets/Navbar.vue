@@ -61,7 +61,7 @@ export default {
     logout() {
       this.$auth.destroyToken();
       this.$store.dispatch("user/logout");
-      this.$router.push({ name: "login" });
+      this.$router.push({ name: "login" }).catch(() => null);
     },
     fetchCurrentUser() {
       this.$store

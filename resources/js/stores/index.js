@@ -14,5 +14,5 @@ export default new Vuex.Store ({
 		bill,
 		cart
 	},
-	strict: true,
+	// strict: true,
 })

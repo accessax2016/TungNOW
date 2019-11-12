@@ -46,9 +46,9 @@ const mutations = {
     [types.CART_DELETE]: (state, id) => {
         state.cart.products.splice(state.cart.products.map(x => x.id).indexOf(id), 1);
     },
-    saveOrderCart(state, products) {
-        debugger
-        state.orderCart.products = products;
+    [types.CART_REMOVE]: (state) => {
+        state.cart.products = [];
+        state.orderCart.products = [];
     }
 }
 // Actions
@@ -62,8 +62,8 @@ const actions = {
     deleteProductInCart: ({ commit }, id) => {
         commit(types.CART_DELETE, id);
     },
-    saveOrderCart: ({ commit }, products) => {
-        commit(types.ORDER_CART_SAVE, products);
+    removeCart: ({ commit }) => {
+        commit(types.CART_REMOVE);
     }
 }
 

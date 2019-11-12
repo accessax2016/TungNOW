@@ -12,6 +12,9 @@
     <td nowrap>
       <textarea class="form-control" cols="30" rows="1" v-model="product.note"></textarea>
     </td>
+    <td nowrap>
+      <font-awesome-icon class="text-danger" icon="trash-alt" @click="deleteItemFromCart(product.id)"/>
+    </td>
   </tr>
 </template>
 
@@ -20,7 +23,7 @@ export default {
   props: {
     product: {
       type: Object,
-      require: true,
+      require: true
     },
     index: {
       type: Number,
@@ -30,10 +33,10 @@ export default {
   methods: {
     sourceImage(url) {
       return "/assets/images/" + url;
+    },
+    deleteItemFromCart(id) {
+      this.$store.dispatch("cart/deleteProductInCart", id);
     }
-  },
-  update() {
-    console.log(this.product);
   }
 };
 </script>

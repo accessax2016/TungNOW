@@ -16,7 +16,6 @@
 </template>
 
 <script>
-import OrderAddVue from "../pages/orders/OrderAdd.vue";
 import CartListVue from "../pages/carts/CartList.vue";
 export default {
   computed: {
@@ -40,7 +39,8 @@ export default {
               const element = res[index];
               await this.addOrder(element);
             }
-            this.$router.push({ name: "bills" });
+            this.$store.dispatch("cart/removeCart");
+            this.$router.push({ name: "bills" }).catch(() => null);
           }
         }
       };
@@ -72,7 +72,7 @@ export default {
       });
     },
     redirectToOrder() {
-      this.$router.push({ name: "orders" });
+      this.$router.push({ name: "orders" }).catch(() => null);
     }
   }
 };
