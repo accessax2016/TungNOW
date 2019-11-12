@@ -71932,10 +71932,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _packages_http_axiosInstance__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../packages/http/axiosInstance */ "./resources/js/packages/http/axiosInstance.js");
 var _mutations;
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
@@ -71944,39 +71940,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var state = {
   cart: {
     products: []
-  },
-  orderCart: {
-    products: []
   }
 }; // Getters
 
 var getters = {
   getProductsInCart: function getProductsInCart(state) {
     return state.cart.products;
-  },
-  getOrderProductsInCart: function getOrderProductsInCart(state) {
-    return state.orderCart.products;
   }
 }; // Mutations
 
 var mutations = (_mutations = {}, _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["CART_ADD"], function (state, product) {
   state.cart.products.push(product);
-  state.orderCart.products = state.cart.products.reduce(function (acc, cur) {
-    var index = acc.map(function (x) {
-      return x.id;
-    }).indexOf(cur.id);
-
-    if (index === -1) {
-      acc.push(_objectSpread({}, cur, {
-        amount: 1,
-        note: ''
-      }));
-    } else {
-      acc[index].amount += 1;
-    }
-
-    return acc;
-  }, []);
 }), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["CART_EDIT"], function (state, product) {
   state.cart.products.splice(state.cart.products.map(function (x) {
     return x.id;
@@ -71987,7 +71961,6 @@ var mutations = (_mutations = {}, _defineProperty(_mutations, _mutation_types__W
   }).indexOf(id), 1);
 }), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["CART_REMOVE"], function (state) {
   state.cart.products = [];
-  state.orderCart.products = [];
 }), _mutations); // Actions
 
 var actions = {
