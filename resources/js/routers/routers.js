@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 
 
 import App from '../App.vue';
+import MainContentVue from '../components/layouts/MainContent.vue';
 import BillContainerVue from '../components/pages/bills/BillContainer.vue';
 import ProductListVue from '../components/pages/products/ProductList.vue';
 import LoginVue from '../components/pages/auth/Login.vue';
@@ -14,15 +15,10 @@ Vue.use(VueRouter);
 const routers = new VueRouter({
     mode: 'history',
     routes: [
-        { 
-            path: '/', 
-            component: App, 
+        {
+            path: '/',
+            component: App,
             children: [
-                {
-                    path: '',
-                    name: 'home',
-                    redirect: 'bills'
-                },
                 {
                     path: 'login',
                     component: LoginVue,
@@ -40,23 +36,34 @@ const routers = new VueRouter({
                     }
                 },
                 {
-                    path: 'bills',
-                    component: BillContainerVue,
-                    name: 'bills'
-                },
-                {
-                    path: 'products',
-                    component: ProductListVue,
-                    name: 'products'
-                },
-                {
-                    path: 'orders',
-                    component: OrderListVue,
-                    name: 'orders'
+                    path: '',
+                    component: MainContentVue,
+                    children: [
+                        {
+                            path: '',
+                            name: 'home',
+                            redirect: 'bills'
+                        },
+                        {
+                            path: 'bills',
+                            component: BillContainerVue,
+                            name: 'bills'
+                        },
+                        {
+                            path: 'products',
+                            component: ProductListVue,
+                            name: 'products'
+                        },
+                        {
+                            path: 'orders',
+                            component: OrderListVue,
+                            name: 'orders'
+                        }
+                    ]
                 }
             ]
         },
-        
+
     ]
 });
 

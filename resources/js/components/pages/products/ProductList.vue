@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-grow-1 main-section d-flex flex-column">
+  <div class="h-100 flex-grow-1 main-section d-flex flex-column overflow-auto">
     <form class="d-flex mb-3 bg-transparent" @submit.prevent="addNewProduct()">
       <input type="text" class="form-control" placeholder="Add new food here" v-model="new_product" />
       <button type="submit" class="btn btn-primary ml-3">ADD</button>

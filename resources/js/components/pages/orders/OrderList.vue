@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-grow-1 d-flex flex-column overflow-auto">
+  <div class="h-100 flex-grow-1 d-flex flex-column overflow-auto">
     <div class="card-deck d-flex flex-wrap">
       <OrderItem class="card" v-for="product in products" :key="product.id" :product="product" />
     </div>

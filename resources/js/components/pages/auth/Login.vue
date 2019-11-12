@@ -67,8 +67,8 @@ export default {
       var oauth = {
         grant_type: "password",
         client_id: 2,
-        client_secret: '9MXTHSNwPATpuRwBrFjyiehNnCzuJ3dkTJlvAdze',
-        // client_secret: "TgHj8DAJWDplX4ErK1cP0ASonDk6xlOcxboEbX3w",
+        // client_secret: '9MXTHSNwPATpuRwBrFjyiehNnCzuJ3dkTJlvAdze',
+        client_secret: "TgHj8DAJWDplX4ErK1cP0ASonDk6xlOcxboEbX3w",
         username: this.email,
         password: this.password
       };

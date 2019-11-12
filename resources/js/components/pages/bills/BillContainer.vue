@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-grow-1 d-flex flex-column">
+  <div class="h-100 flex-grow-1 d-flex flex-column overflow-auto">
     <component :is="currentView"></component>
     <div class="mt-3 d-flex justify-content-end">
       <button v-if="indexView === 1" class="btn btn-primary" @click="changeToBillPreview()">Preview</button>
