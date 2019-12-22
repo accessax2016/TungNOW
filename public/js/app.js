@@ -11695,10 +11695,9 @@ __webpack_require__.r(__webpack_exports__);
     fetchCurrentUser: function fetchCurrentUser() {
       var _this2 = this;
 
-      this.$store.dispatch("user/fetchCurrentUser").then(function (response) {
-        if (_this2.email === "kim@gmail.com" || _this2.email === "thanhtung@gmail.com") {
-          _this2.$store.dispatch("user/updateShowGiftBox");
-        }
+      this.$store.dispatch("user/fetchCurrentUser").then(function (response) {// if (this.email === "kim@gmail.com" || this.email === "thanhtung@gmail.com") {
+        //   this.$store.dispatch("user/updateShowGiftBox");
+        // }
       })["catch"](function (error) {
         _this2.$modal.showErrorModal({
           content: error.message
