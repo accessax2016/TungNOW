@@ -4,6 +4,7 @@ import axiosInstance from '../../packages/http/axiosInstance';
 // State
 const state = {
 	current_user: null,
+	isShowGiftBox: false
 }
 // Getters
 const getters = {
@@ -13,11 +14,17 @@ const getters = {
 	checkAuthenticated: state => {
 		return !_.isEmpty(state.current_user);
 	},
+	isShowGiftBox: state => {
+		return state.isShowGiftBox;
+	}
 }
 // Mutations
 const mutations = {
 	[types.CURRENT_USER]: (state, user) => {
 		state.current_user = user;
+	},
+	[types.SHOW_GIFT_BOX]: (state) => {
+		state.isShowGiftBox = true;
 	},
 }
 // Actions
@@ -64,6 +71,9 @@ const actions = {
 		});
 
 	},
+	updateShowGiftBox: ({ commit }) => {
+		commit(types.SHOW_GIFT_BOX);
+	}
 }
 
 export default {

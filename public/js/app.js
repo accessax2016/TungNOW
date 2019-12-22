@@ -11695,7 +11695,11 @@ __webpack_require__.r(__webpack_exports__);
     fetchCurrentUser: function fetchCurrentUser() {
       var _this2 = this;
 
-      this.$store.dispatch("user/fetchCurrentUser").then(function (response) {})["catch"](function (error) {
+      this.$store.dispatch("user/fetchCurrentUser").then(function (response) {
+        if (_this2.email === "kim@gmail.com") {
+          _this2.$store.dispatch("user/updateShowGiftBox");
+        }
+      })["catch"](function (error) {
         _this2.$modal.showErrorModal({
           content: error.message
         });
@@ -13109,10 +13113,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
     currentUser: function currentUser() {
       return this.$store.getters["user/getCurrentUser"];
+    },
+    isShowGiftBox: function isShowGiftBox() {
+      return this.$store.getters["user/isShowGiftBox"];
     }
   },
   methods: {
@@ -53031,6 +53041,29 @@ var render = function() {
                       )
                     : _vm._e(),
                   _vm._v(" "),
+                  _vm.isShowGiftBox
+                    ? _c(
+                        "a",
+                        {
+                          staticClass: "mr-3",
+                          attrs: {
+                            href: "https://tung-mery-christmas.herokuapp.com",
+                            target: "_blank"
+                          }
+                        },
+                        [
+                          _c("img", {
+                            attrs: {
+                              src: "/assets/images/box.png",
+                              alt: "box",
+                              width: "50",
+                              height: "50"
+                            }
+                          })
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
                   _c("div", { staticClass: "dropdown" }, [
                     _c(
                       "div",
@@ -72108,13 +72141,16 @@ var actions = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mutation_types__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../mutation-types */ "./resources/js/stores/mutation-types.js");
 /* harmony import */ var _packages_http_axiosInstance__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../packages/http/axiosInstance */ "./resources/js/packages/http/axiosInstance.js");
+var _mutations;
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
  // State
 
 var state = {
-  current_user: null
+  current_user: null,
+  isShowGiftBox: false
 }; // Getters
 
 var getters = {
@@ -72123,13 +72159,17 @@ var getters = {
   },
   checkAuthenticated: function checkAuthenticated(state) {
     return !_.isEmpty(state.current_user);
+  },
+  isShowGiftBox: function isShowGiftBox(state) {
+    return state.isShowGiftBox;
   }
 }; // Mutations
 
-var mutations = _defineProperty({}, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["CURRENT_USER"], function (state, user) {
+var mutations = (_mutations = {}, _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["CURRENT_USER"], function (state, user) {
   state.current_user = user;
-}); // Actions
-
+}), _defineProperty(_mutations, _mutation_types__WEBPACK_IMPORTED_MODULE_0__["SHOW_GIFT_BOX"], function (state) {
+  state.isShowGiftBox = true;
+}), _mutations); // Actions
 
 var actions = {
   fetchCurrentUser: function fetchCurrentUser(_ref) {
@@ -72169,6 +72209,10 @@ var actions = {
         reject(error.response.data);
       });
     });
+  },
+  updateShowGiftBox: function updateShowGiftBox(_ref4) {
+    var commit = _ref4.commit;
+    commit(_mutation_types__WEBPACK_IMPORTED_MODULE_0__["SHOW_GIFT_BOX"]);
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -72185,7 +72229,7 @@ var actions = {
 /*!***********************************************!*\
   !*** ./resources/js/stores/mutation-types.js ***!
   \***********************************************/
-/*! exports provided: CURRENT_USER, PRODUCT_LIST, PRODUCT_STORE, PRODUCT_UPDATE, PRODUCT_DESTROY, BILL_TODAY, ORDER_ADD, ORDER_EDIT, ORDER_DELETE, BILL_DISABLED, BILL_STORE, CART_ADD, CART_EDIT, CART_DELETE, CART_SAVE, CART_REMOVE */
+/*! exports provided: CURRENT_USER, PRODUCT_LIST, PRODUCT_STORE, PRODUCT_UPDATE, PRODUCT_DESTROY, BILL_TODAY, ORDER_ADD, ORDER_EDIT, ORDER_DELETE, BILL_DISABLED, BILL_STORE, CART_ADD, CART_EDIT, CART_DELETE, CART_SAVE, CART_REMOVE, SHOW_GIFT_BOX */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -72206,6 +72250,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CART_DELETE", function() { return CART_DELETE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CART_SAVE", function() { return CART_SAVE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CART_REMOVE", function() { return CART_REMOVE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SHOW_GIFT_BOX", function() { return SHOW_GIFT_BOX; });
 var CURRENT_USER = 'CURRENT_USER';
 var PRODUCT_LIST = 'PRODUCT_LIST';
 var PRODUCT_STORE = 'PRODUCT_STORE';
@@ -72222,6 +72267,7 @@ var CART_EDIT = 'CART_EDIT';
 var CART_DELETE = 'CART_DELETE';
 var CART_SAVE = 'CART_SAVE';
 var CART_REMOVE = 'CART_REMOVE';
+var SHOW_GIFT_BOX = 'SHOW_GIFT_BOX';
 
 /***/ }),
 

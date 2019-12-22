@@ -24,6 +24,9 @@
         class="user d-flex align-items-center justify-content-end mb-1 mb-md-0"
       >
         <button v-if="currentUser.admin" class="btn btn-primary mr-3" @click="addNewBill()">NEW BILL</button>
+        <a v-if="isShowGiftBox" href="https://tung-mery-christmas.herokuapp.com" class="mr-3" target="_blank">
+          <img src="/assets/images/box.png" alt="box" width="50" height="50" />
+        </a>
         <div class="dropdown">
           <div
             class="d-flex align-items-center dropdown-toggle"
@@ -52,6 +55,9 @@ export default {
   computed: {
     currentUser() {
       return this.$store.getters["user/getCurrentUser"];
+    },
+    isShowGiftBox() {
+      return this.$store.getters["user/isShowGiftBox"];
     }
   },
   methods: {

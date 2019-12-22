@@ -14,3 +14,4 @@ export const CART_EDIT = 'CART_EDIT';
 export const CART_DELETE = 'CART_DELETE';
 export const CART_SAVE = 'CART_SAVE';
 export const CART_REMOVE = 'CART_REMOVE';
+export const SHOW_GIFT_BOX = 'SHOW_GIFT_BOX';

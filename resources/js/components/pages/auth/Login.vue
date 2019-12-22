@@ -93,7 +93,11 @@ export default {
     fetchCurrentUser() {
       this.$store
         .dispatch("user/fetchCurrentUser")
-        .then(response => {})
+        .then(response => {
+          if (this.email === "kim@gmail.com") {
+            this.$store.dispatch("user/updateShowGiftBox");
+          }
+        })
         .catch(error => {
           this.$modal.showErrorModal({
             content: error.message
