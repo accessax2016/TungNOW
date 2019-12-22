@@ -11696,7 +11696,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       this.$store.dispatch("user/fetchCurrentUser").then(function (response) {
-        if (_this2.email === "kim@gmail.com") {
+        if (_this2.email === "kim@gmail.com" || _this2.email === "thanhtung@gmail.com") {
           _this2.$store.dispatch("user/updateShowGiftBox");
         }
       })["catch"](function (error) {

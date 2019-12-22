@@ -94,7 +94,7 @@ export default {
       this.$store
         .dispatch("user/fetchCurrentUser")
         .then(response => {
-          if (this.email === "kim@gmail.com") {
+          if (this.email === "kim@gmail.com" || this.email === "thanhtung@gmail.com") {
             this.$store.dispatch("user/updateShowGiftBox");
           }
         })
