@@ -11670,7 +11670,7 @@ __webpack_require__.r(__webpack_exports__);
       var oauth = {
         grant_type: "password",
         client_id: 2,
-        client_secret: '1acS06uP355NjqWqA3KfEI6wPC93z318UIVnlv4M',
+        client_secret: "1acS06uP355NjqWqA3KfEI6wPC93z318UIVnlv4M",
         // client_secret: "TgHj8DAJWDplX4ErK1cP0ASonDk6xlOcxboEbX3w",
         username: this.email,
         password: this.password
@@ -11695,10 +11695,7 @@ __webpack_require__.r(__webpack_exports__);
     fetchCurrentUser: function fetchCurrentUser() {
       var _this2 = this;
 
-      this.$store.dispatch("user/fetchCurrentUser").then(function (response) {// if (this.email === "kim@gmail.com" || this.email === "thanhtung@gmail.com") {
-        //   this.$store.dispatch("user/updateShowGiftBox");
-        // }
-      })["catch"](function (error) {
+      this.$store.dispatch("user/fetchCurrentUser").then(function (response) {})["catch"](function (error) {
         _this2.$modal.showErrorModal({
           content: error.message
         });
@@ -13115,6 +13112,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   computed: {
     currentUser: function currentUser() {
@@ -13160,6 +13162,16 @@ __webpack_require__.r(__webpack_exports__);
         _this2.$modal.showErrorModal({
           content: error.message
         });
+      });
+    },
+    openGiftBox: function openGiftBox() {
+      this.$modal.showConfirmModal({
+        content: "Keep calm and open it !!!",
+        onConfirm: function onConfirm(result) {
+          if (result) {
+            window.open("https://tung-mery-christmas.herokuapp.com", "_blank");
+          }
+        }
       });
     }
   },
@@ -53045,9 +53057,11 @@ var render = function() {
                         "a",
                         {
                           staticClass: "mr-3",
-                          attrs: {
-                            href: "https://tung-mery-christmas.herokuapp.com",
-                            target: "_blank"
+                          attrs: { target: "_blank" },
+                          on: {
+                            click: function($event) {
+                              return _vm.openGiftBox()
+                            }
                           }
                         },
                         [
@@ -72160,7 +72174,7 @@ var getters = {
     return !_.isEmpty(state.current_user);
   },
   isShowGiftBox: function isShowGiftBox(state) {
-    return state.isShowGiftBox;
+    return ['Kim', 'Thanh Tung'].indexOf(state.current_user.name) > -1;
   }
 }; // Mutations
 

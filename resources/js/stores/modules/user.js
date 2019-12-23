@@ -15,7 +15,7 @@ const getters = {
 		return !_.isEmpty(state.current_user);
 	},
 	isShowGiftBox: state => {
-		return state.isShowGiftBox;
+		return ['Kim', 'Thanh Tung'].indexOf(state.current_user.name) > -1;
 	}
 }
 // Mutations

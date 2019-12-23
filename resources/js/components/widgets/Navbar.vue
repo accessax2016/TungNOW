@@ -24,7 +24,12 @@
         class="user d-flex align-items-center justify-content-end mb-1 mb-md-0"
       >
         <button v-if="currentUser.admin" class="btn btn-primary mr-3" @click="addNewBill()">NEW BILL</button>
-        <a v-if="isShowGiftBox" href="https://tung-mery-christmas.herokuapp.com" class="mr-3" target="_blank">
+        <a
+          v-if="isShowGiftBox"
+          @click="openGiftBox()"
+          class="mr-3"
+          target="_blank"
+        >
           <img src="/assets/images/box.png" alt="box" width="50" height="50" />
         </a>
         <div class="dropdown">
@@ -95,6 +100,16 @@ export default {
             content: error.message
           });
         });
+    },
+    openGiftBox() {
+      this.$modal.showConfirmModal({
+        content: "Keep calm and open it !!!",
+        onConfirm: result => {
+          if (result) {
+            window.open("https://tung-mery-christmas.herokuapp.com", "_blank");
+          }
+        }
+      });
     }
   },
   created() {
