@@ -72174,7 +72174,7 @@ var getters = {
     return !_.isEmpty(state.current_user);
   },
   isShowGiftBox: function isShowGiftBox(state) {
-    return ['Kim', 'Thanh Tung'].indexOf(state.current_user.name) > -1;
+    return true;
   }
 }; // Mutations
 
